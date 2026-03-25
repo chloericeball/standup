@@ -63,6 +63,26 @@
             list-style: none;
         }
 
+        .navbar-social {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .navbar-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: #B2B2B2;
+            transition: color 0.3s;
+        }
+
+        .navbar-social a:hover {
+            color: #fff;
+        }
+
         .navbar-links a {
             font-family: 'Poppins', sans-serif;
             font-weight: 300;
@@ -133,6 +153,10 @@
 
             .navbar-links a {
                 font-size: 1rem;
+            }
+
+            .navbar-social {
+                display: none; /* Hide on mobile, as hamburger menu takes over */
             }
         }
 
@@ -389,6 +413,14 @@
         <li><a href="shows.html">Shows</a></li>
         <li><a href="support.html" class="active">Feed Me 🍙</a></li>
     </ul>
+    <div class="navbar-social">
+        <a href="https://www.youtube.com/@Chloe.standup" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.9 31.9 0 0 0 0 12a31.9 31.9 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.9 31.9 0 0 0 24 12a31.9 31.9 0 0 0-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+        </a>
+        <a href="https://www.patreon.com/chloericeball" target="_blank" rel="noopener" aria-label="Patreon">
+            <img src="PATREON_SYMBOL_1_WHITE_RGB.svg" alt="Patreon" style="width:20px; height:20px;" />
+        </a>
+    </div>
 </nav>
 
 <!-- Support -->

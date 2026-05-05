@@ -25,7 +25,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #141414;
+            background: #0d0d0d;
             color: #fff;
             overflow-x: hidden;
         }
@@ -36,7 +36,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(20, 20, 20, 0.95);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
             padding: 0 2rem;
@@ -119,7 +119,7 @@
                 right: -100%;
                 width: 260px;
                 height: 100vh;
-                background: #141414;
+                background: #0d0d0d;
                 flex-direction: column;
                 padding: 5rem 2rem 2rem;
                 gap: 1.5rem;
@@ -138,140 +138,209 @@
 
         /* ── Section shared ── */
         .section {
-            padding: 6rem 2rem;
+            padding: 6rem 1.25rem;
         }
 
         .section-inner {
-            max-width: 1100px;
+            max-width: 760px;
             margin: 0 auto;
-        }
-
-        .section-label {
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #3332FF;
-            margin-bottom: 0.8rem;
         }
 
         .section-heading {
             font-weight: 700;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(2.5rem, 8vw, 4rem);
             color: #fff;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
         }
 
         /* ── Shows Section ── */
         .shows {
-            background: #141414;
             padding-top: 8rem;
         }
 
-        .show-card {
+        /* ── View Toggle ── */
+        .view-toggle {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .view-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #444;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .view-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.2s;
+        }
+
+        .view-btn.active {
+            color: #fff;
+        }
+
+        .view-btn.active::after {
+            width: 100%;
+        }
+
+        /* ── Shows Divider ── */
+        .shows-divider {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #333;
+            margin: 2.5rem 0 0.25rem;
+        }
+
+        /* ── Show Row ── */
+        .show-row {
             display: flex;
             align-items: flex-start;
-            gap: 1.5rem;
-            background: #1e1e1e;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-left: 3px solid transparent;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        .show-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        .show-row:first-of-type {
+            border-top: 1px solid #1a1a1a;
         }
 
-        .show-badge {
+        .show-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            flex: 1;
+        }
+
+        .show-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.62rem;
-            color: #fff;
-            border-radius: 0;
+            margin-top: 0.38rem;
         }
 
-        .badge-blue { background: #3332FF; }
-        .badge-coral { background: #F0482A; }
-        .badge-gold { background: #FAB600; }
+        .dot-blue  { background: #3332FF; }
+        .dot-coral { background: #F0482A; }
+        .dot-gold  { background: #FAB600; }
 
-        .show-card:hover .badge-blue ~ .show-details,
-        .show-card:nth-child(3n+1):hover { border-left-color: #3332FF; }
-        .show-card:nth-child(3n+2):hover { border-left-color: #F0482A; }
-        .show-card:nth-child(3n):hover { border-left-color: #FAB600; }
+        .show-info {
+            flex: 1;
+        }
 
-        .show-details h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .show-name {
+            font-size: 1rem;
             font-weight: 600;
-            font-size: 1.1rem;
             color: #fff;
-            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
-        .show-details h3 a {
+        .show-name a {
             display: inline-flex;
             color: #ED1566;
             flex-shrink: 0;
             transition: opacity 0.3s;
         }
 
-        .show-details h3 a:hover {
-            opacity: 0.7;
-        }
+        .show-name a:hover { opacity: 0.7; }
 
         .show-meta {
+            font-size: 0.78rem;
             font-weight: 300;
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.4rem;
+            color: #555;
         }
 
-        .show-details p {
-            font-weight: 300;
-            font-size: 0.9rem;
-            color: #B2B2B2;
-            line-height: 1.6;
+        .show-meta a {
+            color: #888;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s;
         }
 
-        .show-video {
+        .show-meta a:hover { color: #ccc; }
+
+        .show-note {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: #777;
+            margin-top: 0.45rem;
+            line-height: 1.55;
+        }
+
+        .show-ticket {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #3332FF;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .show-ticket:hover { opacity: 0.7; }
+
+        .show-num {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            letter-spacing: 1px;
             flex-shrink: 0;
-            margin-left: auto;
+            margin-top: 0.38rem;
+            margin-left: 1rem;
+        }
+
+        /* ── Video Strip ── */
+        .show-video-strip {
             display: block;
+            max-width: 260px;
+            margin-bottom: 0.5rem;
             position: relative;
-            width: 120px;
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
             transition: opacity 0.3s;
         }
 
-        .show-video:hover {
-            opacity: 0.8;
-        }
+        .show-video-strip:hover { opacity: 0.8; }
 
-        .show-video img {
+        .show-video-strip img {
             display: block;
             width: 100%;
             aspect-ratio: 16/9;
             object-fit: cover;
         }
 
-        .show-video::after {
+        .show-video-strip::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
             pointer-events: none;
         }
 
-        .show-video .play-icon {
+        .show-video-strip .play-icon {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -280,101 +349,6 @@
             height: 28px;
             opacity: 0.9;
             pointer-events: none;
-        }
-
-        @media (max-width: 640px) {
-            .show-card {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .show-video {
-                margin-left: 0;
-                width: 140px;
-            }
-        }
-
-        /* ── Shows Divider ── */
-        .shows-divider {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #555;
-        }
-
-        .shows-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #2a2a2a;
-        }
-
-        .show-ticket {
-            display: inline-block;
-            margin-top: 0.6rem;
-            padding: 0.3rem 0.75rem;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #fff;
-            background: #3332FF;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-
-        .show-ticket:hover {
-            background: #2221cc;
-        }
-
-        .show-meta a {
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid #333;
-            transition: color 0.3s, border-color 0.3s;
-        }
-
-        .show-meta a:hover {
-            color: #ccc;
-            border-bottom-color: #666;
-        }
-
-        /* ── View Toggle ── */
-        .view-toggle {
-            display: flex;
-            width: fit-content;
-            margin-bottom: 2rem;
-            border: 1px solid #2a2a2a;
-            overflow: hidden;
-        }
-
-        .view-btn {
-            background: none;
-            border: none;
-            padding: 0.5rem 1.25rem;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #555;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .view-btn.active {
-            background: #3332FF;
-            color: #fff;
-        }
-
-        .view-btn:hover:not(.active) {
-            background: #1e1e1e;
-            color: #ccc;
         }
 
         /* ── Calendar ── */
@@ -386,7 +360,7 @@
         }
 
         .cal-nav-btn {
-            background: #1e1e1e;
+            background: #111;
             border: none;
             color: #aaa;
             width: 36px;
@@ -400,7 +374,7 @@
         }
 
         .cal-nav-btn:hover {
-            background: #2a2a2a;
+            background: #1a1a1a;
             color: #fff;
         }
 
@@ -414,7 +388,9 @@
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
+            gap: 1px;
+            background: #1a1a1a;
+            border: 1px solid #1a1a1a;
         }
 
         .cal-day-header {
@@ -425,10 +401,11 @@
             text-transform: uppercase;
             color: #444;
             padding: 0.5rem 0;
+            background: #0d0d0d;
         }
 
         .cal-day {
-            background: #1a1a1a;
+            background: #0d0d0d;
             min-height: 90px;
             padding: 0.5rem 0.4rem 0.4rem;
             display: flex;
@@ -436,12 +413,12 @@
             gap: 0.2rem;
         }
 
-        .cal-day.other-month { background: #161616; }
+        .cal-day.other-month { background: #0a0a0a; }
 
         .cal-day-num {
             font-size: 0.75rem;
             font-weight: 600;
-            color: #444;
+            color: #333;
             display: block;
             margin-bottom: 0.15rem;
         }
@@ -480,8 +457,8 @@
         .cal-nav-left { display: flex; gap: 4px; }
 
         .cal-today-btn {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
+            background: #111;
+            border: 1px solid #1a1a1a;
             color: #aaa;
             padding: 0 0.75rem;
             height: 36px;
@@ -494,7 +471,25 @@
             transition: background 0.2s, color 0.2s;
         }
 
-        .cal-today-btn:hover { background: #2a2a2a; color: #fff; }
+        .cal-today-btn:hover { background: #1a1a1a; color: #fff; }
+
+        @media (max-width: 640px) {
+            .cal-day {
+                min-height: 72px;
+                padding: 0.35rem 0.2rem 0.2rem;
+            }
+
+            .cal-show-item { padding: 0.15rem 0.2rem; }
+
+            .cal-show-name {
+                font-size: 0.55rem;
+                white-space: normal;
+                word-break: break-word;
+                line-height: 1.2;
+            }
+
+            .cal-show-time { font-size: 0.5rem; }
+        }
 
         /* ── Calendar Popup ── */
         #cal-popup-overlay {
@@ -509,7 +504,7 @@
         }
 
         #cal-popup {
-            background: #1e1e1e;
+            background: #111;
             max-width: 380px;
             width: 100%;
             padding: 1.75rem;
@@ -566,27 +561,22 @@
             line-height: 1.6;
         }
 
-        @media (max-width: 640px) {
-            .cal-day {
-                min-height: 72px;
-                padding: 0.35rem 0.2rem 0.2rem;
-            }
-
-            .cal-show-item { padding: 0.15rem 0.2rem; }
-
-            .cal-show-name {
-                font-size: 0.55rem;
-                white-space: normal;
-                word-break: break-word;
-                line-height: 1.2;
-            }
-
-            .cal-show-time { font-size: 0.5rem; }
+        .popup-ticket {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #3332FF;
+            text-decoration: none;
+            transition: opacity 0.2s;
         }
+
+        .popup-ticket:hover { opacity: 0.7; }
 
         /* ── Footer ── */
         footer {
-            background: #0f0f0f;
+            background: #0a0a0a;
             text-align: center;
             padding: 3rem 1rem 2rem;
         }
@@ -633,15 +623,15 @@
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            .show-card {
+            .show-row {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
-            .show-card.visible {
+            .show-row.visible {
                 opacity: 1;
                 transform: translateY(0);
-                transition: opacity 0.5s ease, transform 0.5s ease;
+                transition: opacity 0.25s ease, transform 0.25s ease;
             }
         }
 
@@ -652,9 +642,21 @@
                 transition: none;
             }
 
-            .show-card {
+            .show-row {
                 opacity: 1;
                 transform: none;
+            }
+        }
+
+        @media (min-width: 640px) {
+            .section {
+                padding: 6rem 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .section {
+                padding: 6rem 2rem;
             }
         }
     </style>
@@ -677,7 +679,6 @@
 <!-- Shows -->
 <section class="section shows" id="shows">
     <div class="section-inner">
-        <div class="section-label reveal">Shows</div>
         <h2 class="section-heading reveal">My Journey</h2>
 
         <div class="view-toggle">
@@ -688,154 +689,199 @@
         <div id="list-view">
         <div class="shows-divider">Upcoming</div>
 
-        <div class="show-card">
-            <div class="show-badge badge-gold">#15</div>
-            <div class="show-details">
-                <h3>Taipei Comedy Live</h3>
-                <div class="show-meta">May 30, 2026 &middot; 10:00 PM &middot; <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a></div>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
+                    <div class="show-name">Taipei Comedy Live</div>
+                    <div class="show-meta">May 30, 2026 &middot; 10:00 PM &middot; <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a></div>
+                </div>
             </div>
+            <span class="show-num">#15</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-blue">#14</div>
-            <div class="show-details">
-                <h3>Hsinchu Comedy Live <a href="https://www.instagram.com/thewind_city/" target="_blank" rel="noopener" aria-label="thewind_city Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">May 29, 2026 &middot; 9:00 PM &middot; <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">thewind_city</a></div>
-                <a href="https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ" target="_blank" rel="noopener" class="show-ticket">Get Tickets</a>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">Hsinchu Comedy Live <a href="https://www.instagram.com/thewind_city/" target="_blank" rel="noopener" aria-label="thewind_city Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">May 29, 2026 &middot; 9:00 PM &middot; <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">thewind_city</a></div>
+                    <a href="https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ" target="_blank" rel="noopener" class="show-ticket">Get Tickets ↗</a>
+                </div>
             </div>
+            <span class="show-num">#14</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-coral">#13</div>
-            <div class="show-details">
-                <h3>Craft Comedy</h3>
-                <div class="show-meta">May 16, 2026 &middot; 9:30 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
-                <a href="https://www.accupass.com/event/2604261513479380677630?utm_source=ig&amp;utm_medium=social&amp;utm_content=link_in_bio&amp;fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ" target="_blank" rel="noopener" class="show-ticket">Get Tickets</a>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">Craft Comedy</div>
+                    <div class="show-meta">May 16, 2026 &middot; 9:30 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <a href="https://www.accupass.com/event/2604261513479380677630?utm_source=ig&amp;utm_medium=social&amp;utm_content=link_in_bio&amp;fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ" target="_blank" rel="noopener" class="show-ticket">Get Tickets ↗</a>
+                </div>
             </div>
+            <span class="show-num">#13</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-gold">#12</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">May 8, 2026 &middot; 9:30 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
-                <a href="http://bit.ly/fwt8may" target="_blank" rel="noopener" class="show-ticket">Get Tickets</a>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">May 8, 2026 &middot; 9:30 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <a href="http://bit.ly/fwt8may" target="_blank" rel="noopener" class="show-ticket">Get Tickets ↗</a>
+                </div>
             </div>
+            <span class="show-num">#12</span>
         </div>
 
         <div class="shows-divider">Past</div>
 
-        <div class="show-card">
-            <div class="show-badge badge-blue">#11</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Mar 6, 2026 &middot; Two Three Comedy</div>
-                <p>Dolphins and pregnancy are scary 🐬</p>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Mar 6, 2026 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">Dolphins and pregnancy are scary 🐬</p>
+                </div>
             </div>
+            <span class="show-num">#11</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-coral">#10</div>
-            <div class="show-details">
-                <h3>The Cut</h3>
-                <div class="show-meta">Jan 30, 2026 &middot; Comedy Plus</div>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">The Cut</div>
+                    <div class="show-meta">Jan 30, 2026 &middot; <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a></div>
+                </div>
             </div>
+            <span class="show-num">#10</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-gold">#9</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Jan 2, 2026 &middot; Two Three Comedy</div>
-                <p>Walking in Taipei is such a spiritual experience 🌱</p>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Jan 2, 2026 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">Walking in Taipei is such a spiritual experience 🌱</p>
+                </div>
             </div>
-            <a href="https://youtu.be/Nq5A1Qqmzpg?si=yBo8K2_4L0MNMWIm" target="_blank" rel="noopener" class="show-video">
-                <img src="https://img.youtube.com/vi/Nq5A1Qqmzpg/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
-                <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-            </a>
+            <span class="show-num">#9</span>
+        </div>
+        <a href="https://youtu.be/Nq5A1Qqmzpg?si=yBo8K2_4L0MNMWIm" target="_blank" rel="noopener" class="show-video-strip">
+            <img src="https://img.youtube.com/vi/Nq5A1Qqmzpg/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">Taipei Comedy Live</div>
+                    <div class="show-meta">Dec 27, 2025 &middot; <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a></div>
+                </div>
+            </div>
+            <span class="show-num">#8</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-blue">#8</div>
-            <div class="show-details">
-                <h3>Taipei Comedy Live</h3>
-                <div class="show-meta">Dec 27, 2025 &middot; Comedy Plus</div>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Dec 5, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">If men treat pillows the way they treat women...</p>
+                </div>
             </div>
+            <span class="show-num">#7</span>
+        </div>
+        <a href="https://youtu.be/5yWNILhF9bE?si=WYKDzwGJyAIIv2p5" target="_blank" rel="noopener" class="show-video-strip">
+            <img src="https://img.youtube.com/vi/5yWNILhF9bE/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
+                    <div class="show-name">Bye Bye Jamie</div>
+                    <div class="show-meta">Nov 14, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">First PowerPoint comedy; corporate humor + comedian inside jokes</p>
+                </div>
+            </div>
+            <span class="show-num">#6</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-coral">#7</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Dec 5, 2025 &middot; Two Three Comedy</div>
-                <p>If men treat pillows the way they treat women...</p>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">Taipei Comedy Live</div>
+                    <div class="show-meta">Nov 1, 2025 &middot; <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a></div>
+                    <p class="show-note">First show at a different comedy club</p>
+                </div>
             </div>
-            <a href="https://youtu.be/5yWNILhF9bE?si=WYKDzwGJyAIIv2p5" target="_blank" rel="noopener" class="show-video">
-                <img src="https://img.youtube.com/vi/5yWNILhF9bE/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
-                <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-            </a>
+            <span class="show-num">#5</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-gold">#6</div>
-            <div class="show-details">
-                <h3>Bye Bye Jamie</h3>
-                <div class="show-meta">Nov 14, 2025 &middot; Two Three Comedy</div>
-                <p>First PowerPoint comedy; corporate humor + comedian inside jokes</p>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Oct 3, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">Scary joke for a spooky Halloween—let's colonize Taiwan 👻</p>
+                </div>
             </div>
+            <span class="show-num">#4</span>
+        </div>
+        <a href="https://youtu.be/TtckDa4dbRg?si=VQFNFSt1nDWNLjYV" target="_blank" rel="noopener" class="show-video-strip">
+            <img src="https://img.youtube.com/vi/TtckDa4dbRg/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Sep 5, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">Introducing the Bubble Tea Economy theory 🧋</p>
+                </div>
+            </div>
+            <span class="show-num">#3</span>
+        </div>
+        <a href="https://youtu.be/TLWPnsMTaPk?si=i2ryOVoS8Kng_1Uw" target="_blank" rel="noopener" class="show-video-strip">
+            <img src="https://img.youtube.com/vi/TLWPnsMTaPk/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">Kraft Comedy</div>
+                    <div class="show-meta">Jun 28, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">My deportation experience</p>
+                </div>
+            </div>
+            <span class="show-num">#2</span>
         </div>
 
-        <div class="show-card">
-            <div class="show-badge badge-blue">#5</div>
-            <div class="show-details">
-                <h3>Taipei Comedy Live</h3>
-                <div class="show-meta">Nov 1, 2025 &middot; Comedy Plus</div>
-                <p>First show at a different comedy club</p>
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></div>
+                    <div class="show-meta">Jun 6, 2025 &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <p class="show-note">How to distinguish the real Confucius from the fake Western one</p>
+                </div>
             </div>
-        </div>
-
-        <div class="show-card">
-            <div class="show-badge badge-coral">#4</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Oct 3, 2025 &middot; Two Three Comedy</div>
-                <p>Scary joke for a spooky Halloween—let's colonize Taiwan 👻</p>
-            </div>
-            <a href="https://youtu.be/TtckDa4dbRg?si=VQFNFSt1nDWNLjYV" target="_blank" rel="noopener" class="show-video">
-                <img src="https://img.youtube.com/vi/TtckDa4dbRg/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
-                <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-            </a>
-        </div>
-
-        <div class="show-card">
-            <div class="show-badge badge-gold">#3</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Sep 5, 2025 &middot; Two Three Comedy</div>
-                <p>Introducing the Bubble Tea Economy theory 🧋</p>
-            </div>
-            <a href="https://youtu.be/TLWPnsMTaPk?si=i2ryOVoS8Kng_1Uw" target="_blank" rel="noopener" class="show-video">
-                <img src="https://img.youtube.com/vi/TLWPnsMTaPk/mqdefault.jpg" alt="Watch on YouTube" loading="lazy">
-                <svg class="play-icon" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-            </a>
-        </div>
-
-        <div class="show-card">
-            <div class="show-badge badge-blue">#2</div>
-            <div class="show-details">
-                <h3>Kraft Comedy</h3>
-                <div class="show-meta">Jun 28, 2025 &middot; Two Three Comedy</div>
-                <p>My deportation experience</p>
-            </div>
-        </div>
-
-        <div class="show-card">
-            <div class="show-badge badge-coral">#1</div>
-            <div class="show-details">
-                <h3>Funny Women Taipei <a href="https://www.instagram.com/funnywomentaipei/" target="_blank" rel="noopener" aria-label="Funny Women Taipei Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4A6 6 0 0 0 .6 4.1C.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.6C19.1.3 18.3.1 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a></h3>
-                <div class="show-meta">Jun 6, 2025 &middot; Two Three Comedy</div>
-                <p>How to distinguish the real Confucius from the fake Western one</p>
-            </div>
+            <span class="show-num">#1</span>
         </div>
         </div>
 
@@ -899,23 +945,15 @@ navLinks.querySelectorAll('a').forEach(function(link) {
 });
 
 // IntersectionObserver for scroll animations
-const revealElements = document.querySelectorAll('.reveal, .show-card');
+const revealElements = document.querySelectorAll('.reveal, .show-row');
 const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry, index) {
         if (entry.isIntersecting) {
-            if (entry.target.classList.contains('show-card')) {
-                const cards = document.querySelectorAll('.show-card');
-                const cardIndex = Array.from(cards).indexOf(entry.target);
-                setTimeout(function() {
-                    entry.target.classList.add('visible');
-                }, cardIndex * 80);
-            } else {
-                entry.target.classList.add('visible');
-            }
+            entry.target.classList.add('visible');
             observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 });
+}, { threshold: 0 });
 
 revealElements.forEach(function(el) {
     observer.observe(el);
@@ -1052,7 +1090,7 @@ function openPopup(show) {
         html += '<div class="popup-meta">' + (vUrl ? '<a href="' + vUrl + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid #444">' + show.venue + '</a>' : show.venue) + '</div>';
     }
     if (show.note) html += '<p class="popup-note">' + show.note + '</p>';
-    if (show.ticket) html += '<a href="' + show.ticket + '" target="_blank" rel="noopener" class="show-ticket" style="display:inline-block;margin-top:1rem">Get Tickets</a>';
+    if (show.ticket) html += '<a href="' + show.ticket + '" target="_blank" rel="noopener" class="popup-ticket">Get Tickets ↗</a>';
     const popup = document.getElementById('cal-popup');
     popup.style.borderLeftColor = BADGE_COLORS[show.badge];
     document.getElementById('cal-popup-content').innerHTML = html;

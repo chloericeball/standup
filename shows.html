@@ -1098,6 +1098,59 @@ const calShows = [
     { year: 2025, month: 5,  day: 6,  num: 1,  name: 'Funny Women Taipei',  badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'How to distinguish the real Confucius from the fake Western one', ticket: null },
 ];
 
+function sortShowsByDate() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dateMap = {};
+    calShows.forEach(function(s) {
+        dateMap[s.num] = new Date(s.year, s.month, s.day);
+    });
+
+    const container = document.getElementById('list-view');
+    const dividers = container.querySelectorAll('.shows-divider');
+    const upcomingDivider = dividers[0];
+    const pastDivider = dividers[1];
+    const children = Array.from(container.children);
+    const allItems = [];
+
+    for (let i = 0; i < children.length; i++) {
+        const el = children[i];
+        if (!el.classList.contains('show-row')) continue;
+        const numEl = el.querySelector('.show-num');
+        if (!numEl) continue;
+        const num = parseInt(numEl.textContent.replace('#', ''), 10);
+        const item = { row: el, date: dateMap[num], videos: [] };
+        for (let j = i + 1; j < children.length && children[j].classList.contains('show-video-strip'); j++) {
+            item.videos.push(children[j]);
+        }
+        allItems.push(item);
+    }
+
+    allItems.forEach(function(item) {
+        item.row.remove();
+        item.videos.forEach(function(v) { v.remove(); });
+    });
+
+    const upcoming = allItems.filter(function(item) { return !item.date || item.date >= today; })
+                              .sort(function(a, b) { return b.date - a.date; });
+    const past = allItems.filter(function(item) { return item.date && item.date < today; })
+                          .sort(function(a, b) { return b.date - a.date; });
+
+    let ref = upcomingDivider;
+    upcoming.forEach(function(item) {
+        ref.after(item.row); ref = item.row;
+        item.videos.forEach(function(v) { ref.after(v); ref = v; });
+    });
+
+    ref = pastDivider;
+    past.forEach(function(item) {
+        ref.after(item.row); ref = item.row;
+        item.videos.forEach(function(v) { ref.after(v); ref = v; });
+    });
+}
+sortShowsByDate();
+
 const BADGE_COLORS = { blue: '#3332FF', coral: '#F0482A', gold: '#FAB600' };
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 let calYear = 2026, calMonth = 4;

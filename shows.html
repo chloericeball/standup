@@ -1193,7 +1193,7 @@ sortShowsByDate();
 
 const BADGE_COLORS = { blue: '#3332FF', coral: '#F0482A', gold: '#FAB600' };
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-let calYear = 2026, calMonth = 4;
+let calYear = new Date().getFullYear(), calMonth = new Date().getMonth();
 
 function renderCalendar() {
     document.querySelector('.cal-month-title').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;

@@ -703,6 +703,40 @@
             <div class="show-main">
                 <span class="show-dot dot-gold"></span>
                 <div class="show-info">
+                    <div class="show-name">MADE IN TAIWAN by Vincent Tsao – Tainan</div>
+                    <div class="show-meta">Aug 7, 2026 &middot; 8:00 PM &middot; Tainan (venue TBD)</div>
+                </div>
+            </div>
+            <span class="show-num">#24</span>
+        </div>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-blue"></span>
+                <div class="show-info">
+                    <div class="show-name">MADE IN TAIWAN by Vincent Tsao – Taipei</div>
+                    <div class="show-meta">Jul 31, 2026 &middot; 8:00 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                </div>
+            </div>
+            <span class="show-num">#23</span>
+        </div>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-coral"></span>
+                <div class="show-info">
+                    <div class="show-name">Maya Rubin and Casey Li Brander - The Pap Schmear Special</div>
+                    <div class="show-meta">Jun 20, 2026 &middot; 9:30 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
+                    <a href="https://www.accupass.com/event/2605281000477626660670?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnI2k7QtkIVpjr2E7nBGOQyb9gM6ldCI5lMQGWuFSgCOWLPZVw-ulNy15X67g_aem_A_hZyrxThWGr0ds_TAdW4w" target="_blank" rel="noopener" class="show-ticket">Get Tickets ↗</a>
+                </div>
+            </div>
+            <span class="show-num">#22</span>
+        </div>
+
+        <div class="show-row">
+            <div class="show-main">
+                <span class="show-dot dot-gold"></span>
+                <div class="show-info">
                     <div class="show-name">MADE IN TAIWAN by Vincent Tsao – Taipei</div>
                     <div class="show-meta">Jun 13, 2026 &middot; 8:00 PM &middot; <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy</a></div>
                     <a href="https://vtonthestage.oen.tw/events/3Aqe3bJNUVjkuk6HOIW62apgvYt" target="_blank" rel="noopener" class="show-ticket">Get Tickets ↗</a>
@@ -1078,27 +1112,30 @@ const VENUE_URLS = {
 };
 
 const calShows = [
-    { year: 2026, month: 5,  day: 13, num: 21, name: 'MADE IN TAIWAN – Taipei',     badge: 'gold',  time: '6:00 PM', venue: 'Two Three Comedy Club', note: null, ticket: 'https://vtonthestage.oen.tw/events/3Aqe3bJNUVjkuk6HOIW62apgvYt' },
-    { year: 2026, month: 5,  day: 6,  num: 20, name: 'MADE IN TAIWAN – Taichung',   badge: 'coral', time: '6:00 PM', venue: 'Smohouse',              note: null, ticket: 'https://vtonthestage.oen.tw/events/3AqdMjVRFAIVcwThWkvXxb43VAj' },
-    { year: 2026, month: 5,  day: 5,  num: 19, name: 'MADE IN TAIWAN – Kaohsiung',  badge: 'blue',  time: '6:00 PM', venue: 'LIVE WAREHOUSE',        note: null, ticket: 'https://vtonthestage.oen.tw/events/3AKL4vdrb44hzFmEUfRUDSpzSrp' },
-    { year: 2026, month: 4,  day: 30, num: 18, name: 'Taipei Comedy Live',    badge: 'gold',  time: '10:00 PM', venue: 'Comedy Plus',      note: null, ticket: null },
-    { year: 2026, month: 4,  day: 29, num: 17, name: 'Hsinchu Comedy Live',   badge: 'blue',  time: '9:00 PM',  venue: 'thewind_city',     note: null, ticket: 'https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ' },
-    { year: 2026, month: 4,  day: 16, num: 16, name: 'Craft Comedy',          badge: 'coral', time: '9:30 PM',  venue: 'Two Three Comedy', note: null, ticket: 'https://www.accupass.com/event/2604261513479380677630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ' },
-    { year: 2026, month: 4,  day: 8,  num: 15, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: null, ticket: 'http://bit.ly/fwt8may' },
-    { year: 2026, month: 3,  day: 17, num: 14, name: 'Sam See: Rough Rider!', badge: 'blue',  time: '9:30 PM',  venue: 'Two Three Comedy', note: null, ticket: null },
-    { year: 2026, month: 3,  day: 10, num: 13, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: null, ticket: null },
-    { year: 2026, month: 2,  day: 28, num: 12, name: 'Last Comedy Train',     badge: 'coral', time: '9:00 PM',  venue: 'Tokyo Comedy Bar', note: null, ticket: null },
+    { year: 2026, month: 7,  day: 7,  num: 24, name: 'MADE IN TAIWAN by Vincent Tsao – Tainan',  badge: 'gold',  time: '8:00 PM',  venue: 'Tainan (venue TBD)',  note: null, ticket: null },
+    { year: 2026, month: 6,  day: 31, num: 23, name: 'MADE IN TAIWAN by Vincent Tsao – Taipei',  badge: 'blue',  time: '8:00 PM',  venue: 'Two Three Comedy',    note: null, ticket: null },
+    { year: 2026, month: 5,  day: 20, num: 22, name: 'Maya Rubin and Casey Li Brander - The Pap Schmear Special', badge: 'coral', time: '9:30 PM', venue: 'Two Three Comedy', note: null, ticket: 'https://www.accupass.com/event/2605281000477626660670?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnI2k7QtkIVpjr2E7nBGOQyb9gM6ldCI5lMQGWuFSgCOWLPZVw-ulNy15X67g_aem_A_hZyrxThWGr0ds_TAdW4w' },
+    { year: 2026, month: 5,  day: 13, num: 21, name: 'MADE IN TAIWAN by Vincent Tsao – Taipei',  badge: 'gold',  time: '8:00 PM',  venue: 'Two Three Comedy',    note: '5-7 min', ticket: 'https://vtonthestage.oen.tw/events/3Aqe3bJNUVjkuk6HOIW62apgvYt' },
+    { year: 2026, month: 5,  day: 6,  num: 20, name: 'MADE IN TAIWAN by Vincent Tsao – Taichung', badge: 'coral', time: '8:00 PM', venue: 'Smohouse',            note: 'Host + 10-12 min', ticket: 'https://vtonthestage.oen.tw/events/3AqdMjVRFAIVcwThWkvXxb43VAj' },
+    { year: 2026, month: 5,  day: 5,  num: 19, name: 'MADE IN TAIWAN by Vincent Tsao – Kaohsiung', badge: 'blue', time: '8:00 PM', venue: 'LIVE WAREHOUSE',     note: '5-7 min', ticket: 'https://vtonthestage.oen.tw/events/3AKL4vdrb44hzFmEUfRUDSpzSrp' },
+    { year: 2026, month: 4,  day: 30, num: 18, name: 'Taipei Comedy Live',    badge: 'gold',  time: '10:00 PM', venue: 'Comedy Plus',      note: '15 min', ticket: 'https://comedyclub.kktix.cc/events/taipeicomedylive260530' },
+    { year: 2026, month: 4,  day: 29, num: 17, name: 'Hsinchu Comedy Live',   badge: 'blue',  time: '9:00 PM',  venue: 'thewind_city',     note: 'First show outside Taipei! · 15 min', ticket: 'https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ' },
+    { year: 2026, month: 4,  day: 16, num: 16, name: 'Craft Comedy',          badge: 'coral', time: '9:30 PM',  venue: 'Two Three Comedy', note: '8 min', ticket: 'https://www.accupass.com/event/2604261513479380677630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ' },
+    { year: 2026, month: 4,  day: 8,  num: 15, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: '7 min', ticket: 'https://www.eventbrite.co.uk/e/funny-women-taipei-may-tickets-1988160865669' },
+    { year: 2026, month: 3,  day: 17, num: 14, name: 'Sam See: Rough Rider!', badge: 'blue',  time: '9:30 PM',  venue: 'Two Three Comedy', note: 'First time opening for an international comedian!', ticket: null },
+    { year: 2026, month: 3,  day: 10, num: 13, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: 'First time co-hosting a show!', ticket: null },
+    { year: 2026, month: 2,  day: 28, num: 12, name: 'Last Comedy Train',     badge: 'coral', time: '9:00 PM',  venue: 'Tokyo Comedy Bar', note: 'First show abroad!', ticket: null },
     { year: 2026, month: 2,  day: 6,  num: 11, name: 'Funny Women Taipei',    badge: 'blue',  time: null,       venue: 'Two Three Comedy', note: 'Dolphins and pregnancy are scary 🐬', ticket: null },
-    { year: 2026, month: 0,  day: 30, num: 10, name: 'The Cut',             badge: 'coral', time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
-    { year: 2026, month: 0,  day: 2,  num: 9,  name: 'Funny Women Taipei',  badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Walking in Taipei is such a spiritual experience 🌱', ticket: null },
-    { year: 2025, month: 11, day: 27, num: 8,  name: 'Taipei Comedy Live',  badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
-    { year: 2025, month: 11, day: 5,  num: 7,  name: 'Funny Women Taipei',  badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'If men treat pillows the way they treat women...', ticket: null },
-    { year: 2025, month: 10, day: 14, num: 6,  name: 'Bye Bye Jamie',       badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'First PowerPoint comedy; corporate humor + comedian inside jokes', ticket: null },
-    { year: 2025, month: 10, day: 1,  num: 5,  name: 'Taipei Comedy Live',  badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: 'First show at a different comedy club', ticket: null },
-    { year: 2025, month: 9,  day: 3,  num: 4,  name: 'Funny Women Taipei',  badge: 'coral', time: null,       venue: 'Two Three Comedy', note: "Scary joke for a spooky Halloween—let's colonize Taiwan 👻", ticket: null },
-    { year: 2025, month: 8,  day: 5,  num: 3,  name: 'Funny Women Taipei',  badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Introducing the Bubble Tea Economy theory 🧋', ticket: null },
-    { year: 2025, month: 5,  day: 28, num: 2,  name: 'Kraft Comedy',        badge: 'blue',  time: null,       venue: 'Two Three Comedy', note: 'My deportation experience', ticket: null },
-    { year: 2025, month: 5,  day: 6,  num: 1,  name: 'Funny Women Taipei',  badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'How to distinguish the real Confucius from the fake Western one', ticket: null },
+    { year: 2026, month: 0,  day: 30, num: 10, name: 'The Cut',               badge: 'coral', time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
+    { year: 2026, month: 0,  day: 2,  num: 9,  name: 'Funny Women Taipei',    badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Walking in Taipei is such a spiritual experience 🌱', ticket: null },
+    { year: 2025, month: 11, day: 27, num: 8,  name: 'Taipei Comedy Live',    badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
+    { year: 2025, month: 11, day: 5,  num: 7,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'If men treat pillows the way they treat women...', ticket: null },
+    { year: 2025, month: 10, day: 14, num: 6,  name: 'Bye Bye Jamie',         badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'First PowerPoint comedy; corporate humor + comedian inside jokes', ticket: null },
+    { year: 2025, month: 10, day: 1,  num: 5,  name: 'Taipei Comedy Live',    badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: 'First show at a different comedy club', ticket: null },
+    { year: 2025, month: 9,  day: 3,  num: 4,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: "Scary joke for a spooky Halloween—let's colonize Taiwan 👻", ticket: null },
+    { year: 2025, month: 8,  day: 5,  num: 3,  name: 'Funny Women Taipei',    badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Introducing the Bubble Tea Economy theory 🧋', ticket: null },
+    { year: 2025, month: 5,  day: 28, num: 2,  name: 'Kraft Comedy',          badge: 'blue',  time: null,       venue: 'Two Three Comedy', note: 'My deportation experience', ticket: null },
+    { year: 2025, month: 5,  day: 6,  num: 1,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'How to distinguish the real Confucius from the fake Western one', ticket: null },
 ];
 
 function sortShowsByDate() {

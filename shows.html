@@ -168,48 +168,6 @@
             padding-top: 8rem;
         }
 
-        /* ── View Toggle ── */
-        .view-toggle {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .view-btn {
-            background: none;
-            border: none;
-            padding: 0.5rem 0;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #555;
-            cursor: pointer;
-            position: relative;
-            transition: color 0.2s;
-        }
-
-        .view-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #fff;
-            transition: width 0.2s;
-        }
-
-        .view-btn.active {
-            color: #fff;
-        }
-
-        .view-btn.active::after {
-            width: 100%;
-        }
-
         /* ── Shows Divider ── */
         .shows-divider {
             font-size: 0.7rem;
@@ -360,229 +318,6 @@
             pointer-events: none;
         }
 
-        /* ── Calendar ── */
-        .cal-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.2rem;
-        }
-
-        .cal-nav-btn {
-            background: #111;
-            border: none;
-            color: #aaa;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .cal-nav-btn:hover {
-            background: #1a1a1a;
-            color: #fff;
-        }
-
-        .cal-month-title {
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            background: #1a1a1a;
-            border: 1px solid #1a1a1a;
-        }
-
-        .cal-day-header {
-            text-align: center;
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #444;
-            padding: 0.5rem 0;
-            background: #0d0d0d;
-        }
-
-        .cal-day {
-            background: #0d0d0d;
-            min-height: 90px;
-            padding: 0.5rem 0.4rem 0.4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .cal-day.other-month { background: #0a0a0a; }
-
-        .cal-day-num {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #333;
-            display: block;
-            margin-bottom: 0.15rem;
-        }
-
-        .cal-day.has-show .cal-day-num { color: #fff; }
-
-        .cal-show-item {
-            padding: 0.2rem 0.35rem;
-            color: #fff;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            transition: opacity 0.15s;
-        }
-
-        .cal-show-item:hover { opacity: 0.8; }
-
-        .cal-show-name {
-            font-size: 0.62rem;
-            font-weight: 600;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            display: block;
-        }
-
-        .cal-show-time {
-            font-size: 0.58rem;
-            font-weight: 300;
-            opacity: 0.85;
-            display: block;
-        }
-
-        .cal-nav-left { display: flex; gap: 4px; }
-
-        .cal-today-btn {
-            background: #111;
-            border: 1px solid #1a1a1a;
-            color: #aaa;
-            padding: 0 0.75rem;
-            height: 36px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .cal-today-btn:hover { background: #1a1a1a; color: #fff; }
-
-        @media (max-width: 640px) {
-            .cal-day {
-                min-height: 72px;
-                padding: 0.35rem 0.2rem 0.2rem;
-            }
-
-            .cal-show-item { padding: 0.15rem 0.2rem; }
-
-            .cal-show-name {
-                font-size: 0.55rem;
-                white-space: normal;
-                word-break: break-word;
-                line-height: 1.2;
-            }
-
-            .cal-show-time { font-size: 0.5rem; }
-        }
-
-        /* ── Calendar Popup ── */
-        #cal-popup-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.75);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        #cal-popup {
-            background: #111;
-            max-width: 380px;
-            width: 100%;
-            padding: 1.75rem;
-            position: relative;
-            border-left: 3px solid #3332FF;
-        }
-
-        #cal-popup-close {
-            position: absolute;
-            top: 0.6rem;
-            right: 0.75rem;
-            background: none;
-            border: none;
-            color: #555;
-            font-size: 1.4rem;
-            line-height: 1;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        #cal-popup-close:hover { color: #fff; }
-
-        .popup-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #fff;
-            margin-bottom: 0.9rem;
-        }
-
-        .popup-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.35rem;
-        }
-
-        .popup-meta {
-            font-size: 0.83rem;
-            font-weight: 300;
-            color: #777;
-            margin-bottom: 0.2rem;
-        }
-
-        .popup-note {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: #B2B2B2;
-            margin-top: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .popup-ticket {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: #3332FF;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .popup-ticket:hover { opacity: 0.7; }
-
         /* ── Footer ── */
         footer {
             background: #0a0a0a;
@@ -690,11 +425,6 @@
     <div class="section-inner">
         <div class="section-label reveal">I look better in person</div>
         <h2 class="section-heading reveal">It's Show Time!</h2>
-
-        <div class="view-toggle">
-            <button class="view-btn active" data-view="list">List</button>
-            <button class="view-btn" data-view="calendar">Calendar</button>
-        </div>
 
         <div id="list-view">
         <div class="shows-divider">Upcoming</div>
@@ -1038,17 +768,6 @@
         </div>
         </div>
 
-        <div id="calendar-view" style="display:none">
-            <div class="cal-nav">
-                <div class="cal-nav-left">
-                    <button class="cal-nav-btn cal-prev-btn">&#8592;</button>
-                    <button class="cal-nav-btn cal-next-btn">&#8594;</button>
-                </div>
-                <span class="cal-month-title"></span>
-                <button class="cal-today-btn">Today</button>
-            </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
-        </div>
     </div>
 </section>
 
@@ -1071,13 +790,6 @@
     </div>
     <div class="footer-copy">&copy; 2026 Chloe 🍙</div>
 </footer>
-
-<div id="cal-popup-overlay" style="display:none">
-    <div id="cal-popup">
-        <button id="cal-popup-close">&times;</button>
-        <div id="cal-popup-content"></div>
-    </div>
-</div>
 
 <script>
 // Hamburger menu
@@ -1112,68 +824,9 @@ revealElements.forEach(function(el) {
     observer.observe(el);
 });
 
-// View toggle
-const viewBtns = document.querySelectorAll('.view-btn');
-const listView = document.getElementById('list-view');
-const calView = document.getElementById('calendar-view');
-
-viewBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        viewBtns.forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        if (btn.dataset.view === 'list') {
-            listView.style.display = '';
-            calView.style.display = 'none';
-        } else {
-            listView.style.display = 'none';
-            calView.style.display = '';
-            renderCalendar();
-        }
-    });
-});
-
-// Calendar
-const VENUE_URLS = {
-    'Two Three Comedy': 'https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic',
-    'thewind_city':     'https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic',
-    'Comedy Plus':      'https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic',
-};
-
-const calShows = [
-    { year: 2026, month: 7,  day: 7,  num: 24, name: 'MADE IN TAIWAN by Vincent Tsao – Tainan',  badge: 'gold',  time: '8:00 PM',  venue: 'Tainan (venue TBD)',  note: null, ticket: null },
-    { year: 2026, month: 6,  day: 31, num: 23, name: 'MADE IN TAIWAN by Vincent Tsao – Taipei',  badge: 'blue',  time: '8:00 PM',  venue: 'Two Three Comedy',    note: null, ticket: null },
-    { year: 2026, month: 5,  day: 20, num: 22, name: 'Maya Rubin and Casey Li Brander - The Pap Schmear Special', badge: 'coral', time: '9:30 PM', venue: 'Two Three Comedy', note: null, ticket: 'https://www.accupass.com/event/2605281000477626660670?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnI2k7QtkIVpjr2E7nBGOQyb9gM6ldCI5lMQGWuFSgCOWLPZVw-ulNy15X67g_aem_A_hZyrxThWGr0ds_TAdW4w' },
-    { year: 2026, month: 5,  day: 13, num: 21, name: 'MADE IN TAIWAN by Vincent Tsao – Taipei',  badge: 'gold',  time: '8:00 PM',  venue: 'Two Three Comedy',    note: '5-7 min', ticket: 'https://vtonthestage.oen.tw/events/3Aqe3bJNUVjkuk6HOIW62apgvYt' },
-    { year: 2026, month: 5,  day: 6,  num: 20, name: 'MADE IN TAIWAN by Vincent Tsao – Taichung', badge: 'coral', time: '8:00 PM', venue: 'Smohouse',            note: 'Host + 10-12 min', ticket: 'https://vtonthestage.oen.tw/events/3AqdMjVRFAIVcwThWkvXxb43VAj' },
-    { year: 2026, month: 5,  day: 5,  num: 19, name: 'MADE IN TAIWAN by Vincent Tsao – Kaohsiung', badge: 'blue', time: '8:00 PM', venue: 'LIVE WAREHOUSE',     note: '5-7 min', ticket: 'https://vtonthestage.oen.tw/events/3AKL4vdrb44hzFmEUfRUDSpzSrp' },
-    { year: 2026, month: 4,  day: 30, num: 18, name: 'Taipei Comedy Live',    badge: 'gold',  time: '10:00 PM', venue: 'Comedy Plus',      note: '15 min', ticket: 'https://comedyclub.kktix.cc/events/taipeicomedylive260530' },
-    { year: 2026, month: 4,  day: 29, num: 17, name: 'Hsinchu Comedy Live',   badge: 'blue',  time: '9:00 PM',  venue: 'thewind_city',     note: 'First show outside Taipei! · 15 min', ticket: 'https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ' },
-    { year: 2026, month: 4,  day: 16, num: 16, name: 'Craft Comedy',          badge: 'coral', time: '9:30 PM',  venue: 'Two Three Comedy', note: '8 min', ticket: 'https://www.accupass.com/event/2604261513479380677630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ' },
-    { year: 2026, month: 4,  day: 8,  num: 15, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: '7 min', ticket: 'https://www.eventbrite.co.uk/e/funny-women-taipei-may-tickets-1988160865669' },
-    { year: 2026, month: 3,  day: 17, num: 14, name: 'Sam See: Rough Rider!', badge: 'blue',  time: '9:30 PM',  venue: 'Two Three Comedy', note: 'First time opening for an international comedian!', ticket: null },
-    { year: 2026, month: 3,  day: 10, num: 13, name: 'Funny Women Taipei',    badge: 'gold',  time: '9:30 PM',  venue: 'Two Three Comedy', note: 'First time co-hosting a show!', ticket: null },
-    { year: 2026, month: 2,  day: 28, num: 12, name: 'Last Comedy Train',     badge: 'coral', time: '9:00 PM',  venue: 'Tokyo Comedy Bar', note: 'First show abroad!', ticket: null },
-    { year: 2026, month: 2,  day: 6,  num: 11, name: 'Funny Women Taipei',    badge: 'blue',  time: null,       venue: 'Two Three Comedy', note: 'Dolphins and pregnancy are scary 🐬', ticket: null },
-    { year: 2026, month: 0,  day: 30, num: 10, name: 'The Cut',               badge: 'coral', time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
-    { year: 2026, month: 0,  day: 2,  num: 9,  name: 'Funny Women Taipei',    badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Walking in Taipei is such a spiritual experience 🌱', ticket: null },
-    { year: 2025, month: 11, day: 27, num: 8,  name: 'Taipei Comedy Live',    badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: null, ticket: null },
-    { year: 2025, month: 11, day: 5,  num: 7,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'If men treat pillows the way they treat women...', ticket: null },
-    { year: 2025, month: 10, day: 14, num: 6,  name: 'Bye Bye Jamie',         badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'First PowerPoint comedy; corporate humor + comedian inside jokes', ticket: null },
-    { year: 2025, month: 10, day: 1,  num: 5,  name: 'Taipei Comedy Live',    badge: 'blue',  time: null,       venue: 'Comedy Plus',      note: 'First show at a different comedy club', ticket: null },
-    { year: 2025, month: 9,  day: 3,  num: 4,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: "Scary joke for a spooky Halloween—let's colonize Taiwan 👻", ticket: null },
-    { year: 2025, month: 8,  day: 5,  num: 3,  name: 'Funny Women Taipei',    badge: 'gold',  time: null,       venue: 'Two Three Comedy', note: 'Introducing the Bubble Tea Economy theory 🧋', ticket: null },
-    { year: 2025, month: 5,  day: 28, num: 2,  name: 'Kraft Comedy',          badge: 'blue',  time: null,       venue: 'Two Three Comedy', note: 'My deportation experience', ticket: null },
-    { year: 2025, month: 5,  day: 6,  num: 1,  name: 'Funny Women Taipei',    badge: 'coral', time: null,       venue: 'Two Three Comedy', note: 'How to distinguish the real Confucius from the fake Western one', ticket: null },
-];
-
 function sortShowsByDate() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    const dateMap = {};
-    calShows.forEach(function(s) {
-        dateMap[s.num] = new Date(s.year, s.month, s.day);
-    });
 
     const container = document.getElementById('list-view');
     const dividers = container.querySelectorAll('.shows-divider');
@@ -1185,10 +838,13 @@ function sortShowsByDate() {
     for (let i = 0; i < children.length; i++) {
         const el = children[i];
         if (!el.classList.contains('show-row')) continue;
-        const numEl = el.querySelector('.show-num');
-        if (!numEl) continue;
-        const num = parseInt(numEl.textContent.replace('#', ''), 10);
-        const item = { row: el, date: dateMap[num], videos: [] };
+        const meta = el.querySelector('.show-meta');
+        let date = null;
+        if (meta) {
+            const match = meta.textContent.trim().match(/^(\w+ \d+, \d{4})/);
+            if (match) date = new Date(match[1]);
+        }
+        const item = { row: el, date: date, videos: [] };
         for (let j = i + 1; j < children.length && children[j].classList.contains('show-video-strip'); j++) {
             item.videos.push(children[j]);
         }
@@ -1218,124 +874,6 @@ function sortShowsByDate() {
     });
 }
 sortShowsByDate();
-
-const BADGE_COLORS = { blue: '#3332FF', coral: '#F0482A', gold: '#FAB600' };
-const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-let calYear = new Date().getFullYear(), calMonth = new Date().getMonth();
-
-function renderCalendar() {
-    document.querySelector('.cal-month-title').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;
-    const grid = document.getElementById('calendar-grid');
-    grid.innerHTML = '';
-
-    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function(d) {
-        const h = document.createElement('div');
-        h.className = 'cal-day-header';
-        h.textContent = d;
-        grid.appendChild(h);
-    });
-
-    const firstDow = new Date(calYear, calMonth, 1).getDay();
-    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-    const daysInPrev = new Date(calYear, calMonth, 0).getDate();
-
-    for (let i = 0; i < firstDow; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'cal-day other-month';
-        const n = document.createElement('span');
-        n.className = 'cal-day-num';
-        n.textContent = daysInPrev - firstDow + i + 1;
-        cell.appendChild(n);
-        grid.appendChild(cell);
-    }
-
-    for (let d = 1; d <= daysInMonth; d++) {
-        const dayShows = calShows.filter(function(s) {
-            return s.year === calYear && s.month === calMonth && s.day === d;
-        });
-        const cell = document.createElement('div');
-        cell.className = 'cal-day' + (dayShows.length ? ' has-show' : '');
-        const n = document.createElement('span');
-        n.className = 'cal-day-num';
-        n.textContent = d;
-        cell.appendChild(n);
-        dayShows.forEach(function(show) {
-            const item = document.createElement('div');
-            item.className = 'cal-show-item';
-            item.style.background = BADGE_COLORS[show.badge];
-            const nameEl = document.createElement('span');
-            nameEl.className = 'cal-show-name';
-            nameEl.textContent = '#' + show.num + ' ' + show.name;
-            item.appendChild(nameEl);
-            if (show.time) {
-                const timeEl = document.createElement('span');
-                timeEl.className = 'cal-show-time';
-                timeEl.textContent = show.time;
-                item.appendChild(timeEl);
-            }
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-                openPopup(show);
-            });
-            cell.appendChild(item);
-        });
-        grid.appendChild(cell);
-    }
-
-    const totalCells = firstDow + daysInMonth;
-    const trailing = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-    for (let i = 1; i <= trailing; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'cal-day other-month';
-        const n = document.createElement('span');
-        n.className = 'cal-day-num';
-        n.textContent = i;
-        cell.appendChild(n);
-        grid.appendChild(cell);
-    }
-}
-
-function openPopup(show) {
-    const dateStr = MONTH_NAMES[show.month] + ' ' + show.day + ', ' + show.year;
-    let html = '<div class="popup-badge" style="background:' + BADGE_COLORS[show.badge] + '">#' + show.num + '</div>';
-    html += '<div class="popup-title">' + show.name + '</div>';
-    html += '<div class="popup-meta">' + dateStr + (show.time ? ' &middot; ' + show.time : '') + '</div>';
-    if (show.venue) {
-        const vUrl = VENUE_URLS[show.venue];
-        html += '<div class="popup-meta">' + (vUrl ? '<a href="' + vUrl + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid #444">' + show.venue + '</a>' : show.venue) + '</div>';
-    }
-    if (show.note) html += '<p class="popup-note">' + show.note + '</p>';
-    if (show.ticket) html += '<a href="' + show.ticket + '" target="_blank" rel="noopener" class="popup-ticket">Get Tickets ↗</a>';
-    const popup = document.getElementById('cal-popup');
-    popup.style.borderLeftColor = BADGE_COLORS[show.badge];
-    document.getElementById('cal-popup-content').innerHTML = html;
-    document.getElementById('cal-popup-overlay').style.display = 'flex';
-}
-
-document.getElementById('cal-popup-close').addEventListener('click', function() {
-    document.getElementById('cal-popup-overlay').style.display = 'none';
-});
-
-document.getElementById('cal-popup-overlay').addEventListener('click', function(e) {
-    if (e.target === this) this.style.display = 'none';
-});
-
-document.querySelector('.cal-prev-btn').addEventListener('click', function() {
-    if (--calMonth < 0) { calMonth = 11; calYear--; }
-    renderCalendar();
-});
-
-document.querySelector('.cal-next-btn').addEventListener('click', function() {
-    if (++calMonth > 11) { calMonth = 0; calYear++; }
-    renderCalendar();
-});
-
-document.querySelector('.cal-today-btn').addEventListener('click', function() {
-    const now = new Date();
-    calYear = now.getFullYear();
-    calMonth = now.getMonth();
-    renderCalendar();
-});
 </script>
 
 <!-- PostHog -->

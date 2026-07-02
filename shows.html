@@ -393,9 +393,12 @@
                 flex-wrap: wrap;
             }
 
+            .show-main:has(.show-video-strip) {
+                padding-right: 0;
+            }
+
             .show-video-strip {
                 width: calc(100% - 2 * (1.6rem + 0.85rem));
-                flex-basis: 100%;
                 align-self: flex-start;
                 margin-top: 0.5rem;
                 margin-left: calc(1.6rem + 0.85rem);

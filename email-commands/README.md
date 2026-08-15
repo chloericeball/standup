@@ -13,9 +13,11 @@ timer, checking your Gmail every 10 minutes.
 
 1. You email `cloe.creativeworks+website@gmail.com` (a "+alias" of your normal
    Gmail — mail to it still lands in your regular inbox).
-2. Every 10 minutes, a script checks for new unread mail sent **to that alias
-   and from your own address**. Anything else is ignored, so a stranger
-   emailing that alias can't do anything.
+2. Every 10 minutes, a script checks for new mail sent **to that alias and
+   from your own address** that it hasn't already handled (tracked via Gmail
+   labels, not read/unread status — opening or starring the email doesn't
+   affect anything). Anything else is ignored, so a stranger emailing that
+   alias can't do anything.
 3. The email body is sent to Gemini (Google's AI, free tier) with instructions
    to extract a structured command (add/edit/remove + fields) — Gemini never
    touches the JSON file directly, it only fills in a fixed form.
@@ -126,3 +128,9 @@ new commit on GitHub. Then send a follow-up to remove it:
 - The trigger runs every 10 minutes; there's no instant mode. If you need
   something applied right now, open the Apps Script project and run
   `processCommandEmails` manually.
+- **The email script commits straight to GitHub — it never touches this
+  laptop.** Your local clone will drift out of date any time a command runs.
+  Run `git pull origin main` before doing any local work on this repo (e.g.
+  editing `shows.html` by hand, or asking Claude Code to change something) so
+  you're not working from a stale copy. Since the script only ever touches
+  `shows.json`, this is normally a clean fast-forward with no conflicts.

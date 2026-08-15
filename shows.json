@@ -1,0 +1,506 @@
+[
+  {
+    "number": 30,
+    "color": "blue",
+    "name": "Taipei Comedy Live",
+    "instagram": null,
+    "date": "2026-09-26",
+    "time": "Time: TBD",
+    "venueName": "Comedy Plus",
+    "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 29,
+    "color": "coral",
+    "name": "Craft Comedy",
+    "instagram": null,
+    "date": "2026-09-12",
+    "time": "Time: TBD",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 28,
+    "color": "blue",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-09-04",
+    "time": "8:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 27,
+    "color": "gold",
+    "name": "MADE IN TAIWAN by Vincent Tsao – Tainan",
+    "instagram": null,
+    "date": "2026-08-07",
+    "time": "8:00 PM",
+    "venueName": "Legends Tainan",
+    "venueUrl": "https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6",
+    "ticketUrl": "https://vtonthestage.oen.tw/events/3EvoQ03o5XyJ80Yy6nsp4LKnjI7",
+    "notes": [
+      "Host + 10 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 26,
+    "color": "blue",
+    "name": "MADE IN TAIWAN by Vincent Tsao – Taipei",
+    "instagram": null,
+    "date": "2026-07-31",
+    "time": "8:00 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://vtonthestage.oen.tw/events/3Evnm29eSR4AFDYB9KPq3UMhFFs",
+    "notes": [
+      "5-7 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 25,
+    "color": "coral",
+    "name": "Comedians Against Humanity - Comedy Show for Horrible People",
+    "instagram": null,
+    "date": "2026-07-25",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Free show with one drink — no tickets needed, just come!",
+      "5 min + some bits with the cards"
+    ],
+    "video": null
+  },
+  {
+    "number": 24,
+    "color": "blue",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-07-03",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://www.eventbrite.co.uk/e/funny-women-taipei-july-tickets-1992307686923",
+    "notes": [
+      "7 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 23,
+    "color": "coral",
+    "name": "Maya Rubin and Casey Li Brander - The Pap Schmear Special",
+    "instagram": null,
+    "date": "2026-06-20",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://www.accupass.com/event/2605281000477626660670?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnI2k7QtkIVpjr2E7nBGOQyb9gM6ldCI5lMQGWuFSgCOWLPZVw-ulNy15X67g_aem_A_hZyrxThWGr0ds_TAdW4w",
+    "notes": [
+      "8-10 min"
+    ],
+    "video": {
+      "url": "https://youtube.com/shorts/XtND9Xagxw8",
+      "id": "XtND9Xagxw8"
+    }
+  },
+  {
+    "number": 22,
+    "color": "gold",
+    "name": "MADE IN TAIWAN by Vincent Tsao – Taipei",
+    "instagram": null,
+    "date": "2026-06-13",
+    "time": "8:00 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://vtonthestage.oen.tw/events/3Aqe3bJNUVjkuk6HOIW62apgvYt",
+    "notes": [
+      "5-7 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 21,
+    "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-06-12",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Walk on spot (5 min)",
+      "Dating and relationship dealbreaker 💔 Special joke for my mom!"
+    ],
+    "video": {
+      "url": "https://youtu.be/Q-0VFLN9FMk",
+      "id": "Q-0VFLN9FMk"
+    }
+  },
+  {
+    "number": 20,
+    "color": "coral",
+    "name": "MADE IN TAIWAN by Vincent Tsao – Taichung",
+    "instagram": null,
+    "date": "2026-06-06",
+    "time": "8:00 PM",
+    "venueName": "Smohouse",
+    "venueUrl": "https://maps.app.goo.gl/VAGLWwqjqLd6a5f97",
+    "ticketUrl": "https://vtonthestage.oen.tw/events/3AqdMjVRFAIVcwThWkvXxb43VAj",
+    "notes": [
+      "Host + 10-12 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 19,
+    "color": "blue",
+    "name": "MADE IN TAIWAN by Vincent Tsao – Kaohsiung",
+    "instagram": null,
+    "date": "2026-06-05",
+    "time": "8:00 PM",
+    "venueName": "LIVE WAREHOUSE",
+    "venueUrl": "https://maps.app.goo.gl/apwRdPXRxYTAUjnSA",
+    "ticketUrl": "https://vtonthestage.oen.tw/events/3AKL4vdrb44hzFmEUfRUDSpzSrp",
+    "notes": [
+      "5-7 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 18,
+    "color": "gold",
+    "name": "Taipei Comedy Live",
+    "instagram": null,
+    "date": "2026-05-30",
+    "time": "10:00 PM",
+    "venueName": "Comedy Plus",
+    "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
+    "ticketUrl": "https://comedyclub.kktix.cc/events/taipeicomedylive260530",
+    "notes": [
+      "15 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 17,
+    "color": "blue",
+    "name": "Hsinchu Comedy Live",
+    "instagram": {
+      "url": "https://www.instagram.com/thewind_city/",
+      "label": "thewind_city Instagram"
+    },
+    "date": "2026-05-29",
+    "time": "9:00 PM",
+    "venueName": "thewind_city",
+    "venueUrl": "https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic",
+    "ticketUrl": "https://www.accupass.com/event/2604161213066931123430?fbclid=PAdGRleARlPMhleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadp_rSQs21CiCLWDD2PlgdYV4WHEPwfqPcngziyr7jXAhJCrupd5ZVfEvoNeg_aem_ZzDqKsARHODOGWUPq0h-VQ",
+    "notes": [
+      "First show outside Taipei!",
+      "15 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 16,
+    "color": "coral",
+    "name": "Craft Comedy",
+    "instagram": null,
+    "date": "2026-05-16",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://www.accupass.com/event/2604261513479380677630?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleARlPHpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacj5mJKoqjomP1TnVvuXCFlqY_K8efE6hEEqorq4mH-lAvfQbBBb4EK3BLkAw_aem_O0bTlAlBcg7_h-pgeSsTjQ",
+    "notes": [
+      "8 min"
+    ],
+    "video": null
+  },
+  {
+    "number": 15,
+    "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-05-08",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": "https://www.eventbrite.co.uk/e/funny-women-taipei-may-tickets-1988160865669",
+    "notes": [
+      "7 min",
+      "Tax month jokes!"
+    ],
+    "video": {
+      "url": "https://youtu.be/IMnjdeeOiZU",
+      "id": "IMnjdeeOiZU"
+    }
+  },
+  {
+    "number": 14,
+    "color": "blue",
+    "name": "Sam See: Rough Rider!",
+    "instagram": null,
+    "date": "2026-04-17",
+    "time": "9:30pm",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "First time opening for an international comedian!"
+    ],
+    "video": null
+  },
+  {
+    "number": 13,
+    "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-04-10",
+    "time": "9:30pm",
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "First time co-hosting a show!"
+    ],
+    "video": null
+  },
+  {
+    "number": 12,
+    "color": "coral",
+    "name": "Last Comedy Train",
+    "instagram": null,
+    "date": "2026-03-28",
+    "time": "9pm",
+    "venueName": "Tokyo Comedy Bar",
+    "venueUrl": "https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9",
+    "ticketUrl": null,
+    "notes": [
+      "First show abroad!"
+    ],
+    "video": null
+  },
+  {
+    "number": 11,
+    "color": "blue",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-03-06",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Dolphins and pregnancy are scary 🐬"
+    ],
+    "video": {
+      "url": "https://youtu.be/p3Ta4eVb9EM",
+      "id": "p3Ta4eVb9EM"
+    }
+  },
+  {
+    "number": 10,
+    "color": "coral",
+    "name": "The Cut",
+    "instagram": null,
+    "date": "2026-01-30",
+    "time": null,
+    "venueName": "Comedy Plus",
+    "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 9,
+    "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-01-02",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Walking in Taipei is such a spiritual experience 🌱"
+    ],
+    "video": {
+      "url": "https://youtu.be/Nq5A1Qqmzpg",
+      "id": "Nq5A1Qqmzpg"
+    }
+  },
+  {
+    "number": 8,
+    "color": "blue",
+    "name": "Taipei Comedy Live",
+    "instagram": null,
+    "date": "2025-12-27",
+    "time": null,
+    "venueName": "Comedy Plus",
+    "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 7,
+    "color": "coral",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2025-12-05",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "If men treat pillows the way they treat women"
+    ],
+    "video": {
+      "url": "https://youtu.be/5yWNILhF9bE",
+      "id": "5yWNILhF9bE"
+    }
+  },
+  {
+    "number": 6,
+    "color": "gold",
+    "name": "Bye Bye Jamie",
+    "instagram": null,
+    "date": "2025-11-14",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "First PowerPoint comedy; corporate humor + comedian inside jokes"
+    ],
+    "video": null
+  },
+  {
+    "number": 5,
+    "color": "blue",
+    "name": "Taipei Comedy Live",
+    "instagram": null,
+    "date": "2025-11-01",
+    "time": null,
+    "venueName": "Comedy Plus",
+    "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "First show at a different comedy club"
+    ],
+    "video": null
+  },
+  {
+    "number": 4,
+    "color": "coral",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2025-10-03",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Scary joke for a spooky Halloween—let's colonize Taiwan 👻"
+    ],
+    "video": {
+      "url": "https://youtu.be/TtckDa4dbRg",
+      "id": "TtckDa4dbRg"
+    }
+  },
+  {
+    "number": 3,
+    "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2025-09-05",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Introducing the Bubble Tea Economy theory 🧋"
+    ],
+    "video": {
+      "url": "https://youtu.be/TLWPnsMTaPk",
+      "id": "TLWPnsMTaPk"
+    }
+  },
+  {
+    "number": 2,
+    "color": "blue",
+    "name": "Kraft Comedy",
+    "instagram": null,
+    "date": "2025-06-28",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "My deportation experience"
+    ],
+    "video": null
+  },
+  {
+    "number": 1,
+    "color": "coral",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2025-06-06",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "How to distinguish the real Confucius from the fake Western one"
+    ],
+    "video": null
+  }
+]

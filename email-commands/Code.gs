@@ -245,7 +245,7 @@ function addShow_(shows, fields) {
   const number = maxNumber + 1;
   const show = {
     number,
-    color: ['blue', 'coral', 'gold'][number % 3],
+    color: ['coral', 'gold'][number % 2],
     name: fields.name,
     instagram: null,
     date: fields.date,

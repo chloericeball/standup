@@ -191,6 +191,7 @@
 
         .hero-cta {
             display: inline-block;
+            margin-top: 2.5rem;
             padding: 0.9rem 2.5rem;
             border: 1px solid #fff;
             color: #fff;
@@ -207,24 +208,6 @@
         .hero-cta:hover {
             background: #fff;
             color: #141414;
-        }
-
-        .hero-cta-arrow {
-            display: block;
-            margin-top: 2.5rem;
-            margin-bottom: 0.3rem;
-            font-size: 1.4rem;
-            color: #fff;
-        }
-
-        .hero-cta-arrow span {
-            display: inline-block;
-            animation: hero-cta-bounce 1.6s ease-in-out infinite;
-        }
-
-        @keyframes hero-cta-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(4px); }
         }
 
         @media (max-width: 768px) {
@@ -459,11 +442,6 @@
                 animation: fadeSlideUp 0.8s 0.8s ease forwards;
             }
 
-            .hero-cta-arrow {
-                opacity: 0;
-                animation: fadeSlideUp 0.8s 0.8s ease forwards;
-            }
-
             @keyframes fadeSlideUp {
                 from {
                     opacity: 0;
@@ -486,8 +464,7 @@
 
             .hero-title,
             .hero-subtitle,
-            .hero-cta,
-            .hero-cta-arrow {
+            .hero-cta {
                 opacity: 1;
             }
 
@@ -515,7 +492,6 @@
     <div class="hero-content">
         <h1 class="hero-title">Chloe</h1>
         <p class="hero-subtitle">Stand-Up Comedy</p>
-        <span class="hero-cta-arrow"><span>↓</span></span>
         <a href="shows.html" class="hero-cta">Show Time</a>
     </div>
 </section>

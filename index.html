@@ -210,6 +210,17 @@
             color: #141414;
         }
 
+        .hero-cta-arrow {
+            display: inline-block;
+            margin-left: 8px;
+            animation: hero-cta-bounce 1.6s ease-in-out infinite;
+        }
+
+        @keyframes hero-cta-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
         @media (max-width: 768px) {
             .hero::before {
                 background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.3) 45%, transparent 60%,
@@ -492,7 +503,7 @@
     <div class="hero-content">
         <h1 class="hero-title">Chloe</h1>
         <p class="hero-subtitle">Stand-Up Comedy</p>
-        <a href="shows.html" class="hero-cta">Show Time</a>
+        <a href="shows.html" class="hero-cta">Show Time <span class="hero-cta-arrow">↓</span></a>
     </div>
 </section>
 

@@ -210,6 +210,33 @@
             color: #141414;
         }
 
+        .hero-cta-wrap {
+            display: inline-block;
+        }
+
+        .hero-scroll-arrow {
+            display: block;
+            width: 22px;
+            height: 22px;
+            margin: 1.5rem auto 0;
+            color: rgba(255, 255, 255, 0.7);
+            animation: heroArrowFloat 2.5s ease-in-out infinite;
+        }
+
+        .hero-scroll-arrow:hover {
+            color: #fff;
+        }
+
+        @keyframes heroArrowFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        @keyframes heroArrowFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @media (max-width: 768px) {
             .hero::before {
                 background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.3) 45%, transparent 60%,
@@ -229,7 +256,7 @@
                 padding: 8rem 2rem 3rem;
             }
 
-            .hero-cta {
+            .hero-cta-wrap {
                 margin-top: auto;
             }
         }
@@ -551,6 +578,12 @@
                 animation: fadeSlideUp 0.8s 0.8s ease forwards;
             }
 
+            .hero-scroll-arrow {
+                opacity: 0;
+                animation: heroArrowFloat 2.5s ease-in-out infinite,
+                           heroArrowFadeIn 0.8s 1.1s ease forwards;
+            }
+
             @keyframes fadeSlideUp {
                 from {
                     opacity: 0;
@@ -573,8 +606,13 @@
 
             .hero-title,
             .hero-subtitle,
-            .hero-cta {
+            .hero-cta,
+            .hero-scroll-arrow {
                 opacity: 1;
+            }
+
+            .hero-scroll-arrow {
+                animation: none;
             }
 
         }
@@ -705,7 +743,12 @@
     <div class="hero-content">
         <h1 class="hero-title">Chloe</h1>
         <p class="hero-subtitle">Stand-Up Comedy</p>
-        <a href="shows.html" class="hero-cta">Show Time</a>
+        <span class="hero-cta-wrap">
+            <a href="shows.html" class="hero-cta">Show Time</a>
+            <a href="shows.html" class="hero-scroll-arrow" aria-label="See show times">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </a>
+        </span>
     </div>
 </section>
 

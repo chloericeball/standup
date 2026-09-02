@@ -191,7 +191,6 @@
 
         .hero-cta {
             display: inline-block;
-            margin-top: 2.5rem;
             padding: 0.9rem 2.5rem;
             border: 1px solid #fff;
             color: #fff;
@@ -210,8 +209,42 @@
             color: #141414;
         }
 
+        /* Show Time's button — layered over .hero-cta to give just that one
+           button more presence (thicker border, faint fill, heavier weight). */
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.3rem;
+            min-height: 46px;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #fff;
+            color: #141414;
+        }
+
+        .btn-secondary:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
+        }
+
         .hero-cta-wrap {
             display: inline-block;
+            margin-top: 2.5rem;
         }
 
         .hero-scroll-arrow {
@@ -487,20 +520,33 @@
         }
 
         .perform-chips a {
-            display: inline-block;
-            padding: 0.5rem 1.1rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55rem 1.15rem;
+            min-height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.38);
             border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
             color: #fff;
             text-decoration: none;
             font-weight: 300;
             font-size: 0.85rem;
-            transition: background 0.3s, border-color 0.3s;
+            transition: background 0.3s, border-color 0.3s, transform 0.15s;
         }
 
         .perform-chips a:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.13);
+            border-color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .perform-chips a:active {
+            transform: translateY(0);
+        }
+
+        .perform-chips a:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
         }
 
         .perform-more {
@@ -699,13 +745,13 @@
         }
 
         .ml-preview {
-            margin: 0.5rem 0 0;
-            padding-bottom: 1rem;
+            margin: 0;
+            padding: 0;
             font-size: 0.85rem;
             font-weight: 300;
             line-height: 1.5;
             color: #B2B2B2;
-            min-height: 1.1rem;
+            min-height: 1rem;
         }
 
         .ml-preview.ok {
@@ -748,7 +794,7 @@
         <h1 class="hero-title">Chloe</h1>
         <p class="hero-subtitle">Stand-Up Comedy</p>
         <span class="hero-cta-wrap">
-            <a href="shows.html" class="hero-cta">Show Time</a>
+            <a href="shows.html" class="hero-cta btn-secondary">Show Time</a>
             <a href="shows.html" class="hero-scroll-arrow" aria-label="See show times">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
             </a>

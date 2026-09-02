@@ -378,6 +378,115 @@
 
         }
 
+        /* ── Where I Perform Section ── */
+        .perform {
+            background: #1a1a1a;
+        }
+
+        .perform-sub {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #B2B2B2;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .perform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .perform-main {
+            background: #141414;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .perform-city {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .perform-count {
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: #B2B2B2;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .perform-venues {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .perform-venues a {
+            width: fit-content;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            padding-bottom: 2px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            transition: border-color 0.3s;
+        }
+
+        .perform-venues a:hover {
+            border-color: #fff;
+        }
+
+        .perform-also-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #B2B2B2;
+            margin-bottom: 1.2rem;
+        }
+
+        .perform-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .perform-chips a {
+            display: inline-block;
+            padding: 0.5rem 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 999px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.85rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .perform-chips a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .perform-more {
+            margin-top: 1rem;
+            font-weight: 300;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .perform-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
         /* ── Footer ── */
         footer {
             background: #0f0f0f;
@@ -648,6 +757,36 @@
                 <h2 class="section-heading reveal">Feed Me 🍙</h2>
                 <p class="reveal" style="font-weight: 300; font-size: 1.1rem; color: #B2B2B2; margin-bottom: 1.5rem;">Adopt me as your tamagotchi?</p>
                 <a href="support.html" class="hero-cta reveal">Yes!</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Where I Perform -->
+<section class="section perform" id="perform">
+    <div class="section-inner">
+        <div class="section-label reveal">Home Base</div>
+        <h2 class="section-heading reveal">Where do I usually perform?</h2>
+        <p class="perform-sub reveal">Most nights you'll find me on stage in Taipei — but I get around.</p>
+        <div class="perform-grid">
+            <div class="perform-main reveal">
+                <div class="perform-city">Taipei, Taiwan</div>
+                <div class="perform-count">25 of my last 30 shows</div>
+                <div class="perform-venues">
+                    <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy Club</a>
+                    <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a>
+                </div>
+            </div>
+            <div class="perform-also reveal">
+                <div class="perform-also-label">Also caught on the road in</div>
+                <div class="perform-chips">
+                    <a href="https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6" target="_blank" rel="noopener">Tainan</a>
+                    <a href="https://maps.app.goo.gl/VAGLWwqjqLd6a5f97" target="_blank" rel="noopener">Taichung</a>
+                    <a href="https://maps.app.goo.gl/apwRdPXRxYTAUjnSA" target="_blank" rel="noopener">Kaohsiung</a>
+                    <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">Hsinchu</a>
+                    <a href="https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9" target="_blank" rel="noopener">Tokyo</a>
+                </div>
+                <div class="perform-more">More cities coming soon</div>
             </div>
         </div>
     </div>

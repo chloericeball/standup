@@ -215,7 +215,7 @@
         }
 
         .hero-scroll-arrow {
-            display: block;
+            display: none;
             width: 22px;
             height: 22px;
             margin: 1.5rem auto 0;
@@ -258,6 +258,10 @@
 
             .hero-cta-wrap {
                 margin-top: auto;
+            }
+
+            .hero-scroll-arrow {
+                display: block;
             }
         }
 
@@ -939,6 +943,94 @@ const navObserver = new IntersectionObserver(function(entries) {
 sections.forEach(function(section) {
     navObserver.observe(section);
 });
+</script>
+
+<!-- "Where do I usually perform?" — derived from shows.json -->
+<script>
+(function () {
+    // venueName (lowercased substring) -> city. Anything unmatched falls back to the venue name.
+    var VENUE_CITY = [
+        [/two three comedy/, { short: 'Taipei', full: 'Taipei, Taiwan' }],
+        [/comedy plus/,      { short: 'Taipei', full: 'Taipei, Taiwan' }],
+        [/tainan/,           { short: 'Tainan', full: 'Tainan, Taiwan' }],
+        [/smohouse/,         { short: 'Taichung', full: 'Taichung, Taiwan' }],
+        [/live warehouse/,   { short: 'Kaohsiung', full: 'Kaohsiung, Taiwan' }],
+        [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }],
+        [/tokyo/,            { short: 'Tokyo', full: 'Tokyo, Japan' }]
+    ];
+    var WINDOW = 30;
+
+    function cityOf(venueName) {
+        var key = String(venueName || '').toLowerCase();
+        for (var i = 0; i < VENUE_CITY.length; i++) {
+            if (VENUE_CITY[i][0].test(key)) return VENUE_CITY[i][1];
+        }
+        return { short: venueName || 'Elsewhere', full: venueName || 'Elsewhere' };
+    }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+    function byDateDesc(a, b) { return String(b.date || '').localeCompare(String(a.date || '')); }
+
+    fetch('shows.json', { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (shows) {
+            if (!Array.isArray(shows) || !shows.length) return;
+
+            var recent = shows.slice().sort(byDateDesc).slice(0, WINDOW);
+
+            var tally = {};   // short -> count
+            var meta = {};    // short -> { full, venues: [{ name, url, count, date }] }
+            recent.forEach(function (s) {
+                var c = cityOf(s.venueName);
+                tally[c.short] = (tally[c.short] || 0) + 1;
+                if (!meta[c.short]) meta[c.short] = { full: c.full, venues: [] };
+                var vlist = meta[c.short].venues;
+                var v = null;
+                for (var i = 0; i < vlist.length; i++) { if (vlist[i].name === s.venueName) { v = vlist[i]; break; } }
+                if (!v) { v = { name: s.venueName, url: s.venueUrl, count: 0, date: s.date }; vlist.push(v); }
+                v.count++;
+                if (String(s.date || '') > String(v.date || '')) { v.date = s.date; v.url = s.venueUrl; }
+            });
+
+            var cities = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a]; });
+            var primary = cities[0];
+            if (!primary) return;
+            var pMeta = meta[primary];
+
+            var sub = document.querySelector('.perform-sub');
+            if (sub) sub.textContent = 'Most nights you’ll find me on stage in ' + primary + ' — but I get around.';
+
+            var cityEl = document.querySelector('.perform-city');
+            if (cityEl) cityEl.textContent = pMeta.full;
+
+            var countEl = document.querySelector('.perform-count');
+            if (countEl) countEl.textContent = tally[primary] + ' of my last ' + recent.length + ' shows';
+
+            var venuesEl = document.querySelector('.perform-venues');
+            if (venuesEl) {
+                venuesEl.innerHTML = pMeta.venues.slice().sort(function (a, b) {
+                    return b.count - a.count || byDateDesc(a, b);
+                }).map(function (v) {
+                    return '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>';
+                }).join('\n                    ');
+            }
+
+            var chipsEl = document.querySelector('.perform-chips');
+            if (chipsEl) {
+                var others = cities.filter(function (c) { return c !== primary; }).map(function (c) {
+                    var v = meta[c].venues.slice().sort(byDateDesc)[0];
+                    return { city: c, url: v ? v.url : null, date: v ? v.date : '' };
+                }).sort(byDateDesc);
+
+                chipsEl.innerHTML = others.map(function (o) {
+                    return o.url
+                        ? '<a href="' + escAttr(o.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
+                        : '<span>' + esc(o.city) + '</span>';
+                }).join('\n                    ');
+            }
+        })
+        .catch(function (e) { console.error('perform section: failed to load shows.json', e); });
+})();
 </script>
 
 <!-- Mailing list signup -->

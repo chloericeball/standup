@@ -22,20 +22,22 @@ timer, checking your Gmail every 10 minutes.
    to extract a list of structured commands (add/edit/remove + fields), one
    per distinct change in the email — Gemini never touches the JSON file
    directly, it only fills in a fixed form.
-4. The script applies those commands in order to the `shows.json` array (add
-   an entry, change some fields on one, remove one), renumbers every show by
-   date (earliest = `#1`), then commits the result straight to GitHub via the
-   API in a **single commit**, and replies to you confirming what changed (or
-   explaining why it didn't do anything, if something didn't parse). If any
-   one command can't be applied, nothing is committed.
+4. The script applies those commands one by one to the `shows.json` array (add
+   an entry, change some fields on one, remove one) — skipping any that can't
+   be applied — renumbers every show by date (earliest = `#1`), then commits
+   the result straight to GitHub via the API in a **single commit**, and
+   replies to you with what changed and what was skipped. Only if no command
+   could be applied is nothing committed.
 
 New/edited shows automatically land in the right place — the page sorts
 shows by date into Upcoming/Past on every load, so you never need to say
 which section something belongs in. The `#` badge follows date order too, so
 adding a show between two existing dates renumbers the rest.
 
-If anything is ambiguous or fails, **nothing is committed** — you just get an
-email explaining why.
+Each change is applied on its own: the ones that work get committed, and the
+reply email lists any that were skipped (ambiguous, bad match, missing info)
+so you can re-send just those. Only if **nothing** in the email works does
+nothing get committed.
 
 ## Command examples
 
@@ -47,12 +49,22 @@ Just write like you're texting yourself. Examples:
 - "Update Funny Women Taipei (Sep 4): venue is Legacy Taipei, https://maps.app.goo.gl/xyz"
 - "Add a note to Taipei Comedy Live on Sep 26: opening for a touring comic."
 
-One email can carry several changes — they're applied together in one commit:
+One email can carry several changes — the ones that work are committed
+together:
 
 - "Bump Craft Comedy (Sep 12) to 9pm, cancel the Japanese Open Mic on Sep 5,
   and add a note to Taipei Comedy Live on Sep 26: opening for a touring comic."
 - "Add two shows: Craft Comedy at Two Three on Oct 3 8pm, and Open Mic at
   Revolver on Oct 10 7:30pm."
+
+You can also change **several shows at once** with a plural — each matching
+show is updated separately:
+
+- "Change the venue for both Japanese Open Mic shows to Riff Bar."
+- "Add a note to all the Funny Women Taipei shows: 10 min set."
+
+If one change in the email can't be done (ambiguous, no match, missing info)
+the rest still go through, and the reply email lists what was skipped and why.
 
 The one thing you can't do in a single email is add a show and then edit that
 same just-added show in the same email — send that as two.
@@ -61,8 +73,8 @@ Good to include when adding a show: **name** and **date** are required
 (everything else defaults to TBD or is left off). For edits/removes, identify
 the show by **name + date** — that's what the script matches on, and it stays
 valid even as numbers shift (see below). A `#N` still works if it's current,
-but name + date is safer. If more than one show matches, you'll get an email
-asking you to be specific.
+but name + date is safer. If a single show can't be pinned down, you'll get an
+email asking you to be specific about that one.
 
 ## One-time setup
 
@@ -139,9 +151,15 @@ new commit on GitHub. Then send a follow-up to remove it:
 - Renumbering only rewrites the `number`/`color` of shows whose position
   actually changed — the rest of `shows.json` is untouched, so diffs stay
   small.
-- Several changes in one email are all-or-nothing: they're applied to one
-  working copy and committed once, so a single bad match (or missing field)
-  on any of them means the whole email is rejected and nothing changes.
+- Several changes in one email are applied independently: the ones that work
+  are committed together in one commit, and the reply email lists any that
+  were skipped (bad match, missing field, couldn't tell which show) so you
+  can re-send just those. Nothing is committed only if *none* of them work.
+  A skipped change is not retried automatically — re-send it.
+- "Both" / "all" / plurals fan out: "change the venue for both Open Mics" or
+  "add a note to all the Funny Women shows" updates each matching show
+  separately. You only get asked to clarify when it genuinely can't tell
+  which shows you mean.
 - Edits change only the fields you mention on the matching show's JSON entry
   — everything else (including Instagram icon and YouTube video, if any) is
   left untouched.

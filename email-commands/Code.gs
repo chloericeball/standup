@@ -3,13 +3,15 @@
  *
  * Send a natural-language email to your command alias (see README) describing
  * one or more shows to add, edit, or remove. This script reads it, asks Gemini
- * to turn it into a list of structured commands, applies them to the shows.json
- * array with plain array operations (never lets the model touch the file
- * directly), and commits the result to GitHub in a single commit. If any
- * command in the email can't be applied, nothing is committed. Show numbers
- * are reassigned by date on every change (earliest = #1), so slotting a show
- * between two existing dates renumbers the rest. shows.html renders itself
- * from that file at load time, so nothing else needs to change.
+ * to turn it into a list of structured commands, applies each one to the
+ * shows.json array with plain array operations (never lets the model touch the
+ * file directly), and commits the result to GitHub in a single commit. Commands
+ * are applied independently: the ones that work are committed together, and the
+ * reply email lists any that were skipped (bad match, missing field, ambiguous)
+ * so you can re-send just those. Only if none of them work is nothing committed.
+ * Show numbers are reassigned by date on every change (earliest = #1), so
+ * slotting a show between two existing dates renumbers the rest. shows.html
+ * renders itself from that file at load time, so nothing else needs to change.
  * You always get a reply email confirming what happened, or explaining why
  * nothing changed.
  *
@@ -67,34 +69,46 @@ function handleMessage_(message, props) {
 
   const command = extractCommand_(body, props, shows);
 
-  if (command.clarification_needed) {
-    throw new Error(command.clarification_needed);
-  }
-
   const commands = command.commands || [];
+  const clarification = command.clarification_needed;
+
   if (!commands.length) {
-    throw new Error("Didn't recognize this as a show add/edit/remove request.");
+    throw new Error(clarification || "Didn't recognize this as a show add/edit/remove request.");
   }
 
-  // Apply every command to one working copy of the array. If any command
-  // throws (bad match, missing field), we never reach the commit, so the
-  // whole email is all-or-nothing.
+  // Apply each command independently. A command that throws (bad match,
+  // missing field) is recorded and skipped — the others still go through.
   let working = shows;
   const ops = [];
+  const failures = [];
   commands.forEach(c => {
-    let result;
-    if (c.action === 'add_show') {
-      result = addShow_(working, c.fields || {});
-    } else if (c.action === 'edit_show') {
-      result = editShow_(working, c);
-    } else if (c.action === 'remove_show') {
-      result = removeShow_(working, c);
-    } else {
-      throw new Error('Unknown action: ' + c.action);
+    try {
+      let result;
+      if (c.action === 'add_show') {
+        result = addShow_(working, c.fields || {});
+      } else if (c.action === 'edit_show') {
+        result = editShow_(working, c);
+      } else if (c.action === 'remove_show') {
+        result = removeShow_(working, c);
+      } else {
+        throw new Error('Unknown action: ' + c.action);
+      }
+      working = result.shows;
+      ops.push(result);
+    } catch (err) {
+      failures.push({ command: c, message: err.message });
     }
-    working = result.shows;
-    ops.push(result);
   });
+
+  // Everything left undone: commands that failed to apply, plus anything
+  // Gemini couldn't turn into a command in the first place.
+  const skipped = failures.map(f => '- ' + describeCommandTarget_(f.command) + ': ' + f.message);
+  if (clarification) skipped.push('- ' + clarification);
+
+  if (!ops.length) {
+    // Nothing applied — leave the thread as Failed and list every reason.
+    throw new Error('None of the changes could be applied:\n' + skipped.join('\n'));
+  }
 
   // Renumber every show by date (earliest = #1) so a show slotted between two
   // existing dates pushes the rest up, and recompute the coral/gold stripe.
@@ -106,12 +120,16 @@ function handleMessage_(message, props) {
   const newContent = JSON.stringify(working, null, 2) + '\n';
   commitGithubFile_(props, newContent, file.sha, summary);
 
+  const skippedBlock = skipped.length
+    ? '\n\nNot applied (left unchanged) — re-send these on their own:\n' + skipped.join('\n')
+    : '';
+
   const repo = props.getProperty('GITHUB_REPO');
   const branch = props.getProperty('GITHUB_BRANCH') || 'main';
   GmailApp.sendEmail(
     props.getProperty('TRUSTED_SENDER'),
     'Website updated: ' + summary,
-    'Done.\n\n' + summary + '\n\n' +
+    'Done.\n\n' + summary + skippedBlock + '\n\n' +
     'The "#" is the current position by date and can shift when an earlier ' +
     'show is added — to change a show later, name it and give its date.\n\n' +
     'Live site: https://chloericeball.github.io/standup/shows.html\n' +
@@ -132,6 +150,21 @@ function describeOp_(op) {
   return 'Removed "' + op.removed.name + '" (' + op.removed.date + ')';
 }
 
+// Describe an *attempted* command, for explaining what was skipped.
+function describeCommandTarget_(c) {
+  if (c.action === 'add_show') {
+    const f = c.fields || {};
+    return 'add "' + (f.name || '(unnamed)') + '"' + (f.date ? ' (' + f.date + ')' : '');
+  }
+  const verb = c.action === 'remove_show' ? 'remove ' : 'edit ';
+  if (c.target_match_name) {
+    return verb + '"' + c.target_match_name + '"' +
+      (c.target_match_date ? ' (' + c.target_match_date + ')' : '');
+  }
+  if (c.target_show_number) return verb + '#' + c.target_show_number;
+  return verb + '(unspecified show)';
+}
+
 // ── Gemini: natural language → structured command ──────────────────────────
 // Free tier (aistudio.google.com/apikey) — no billing needed. Gemini only
 // ever fills in this fixed schema; it never sees or edits shows.json itself.
@@ -144,11 +177,11 @@ const COMMAND_SCHEMA = {
   properties: {
     clarification_needed: {
       type: ['string', 'null'],
-      description: 'Set (and leave commands empty) if required info is missing or any part of the email is ambiguous. Otherwise null.'
+      description: 'A short note about any part of the email you could NOT turn into a command (a show added with no name/resolvable date, or a change where you cannot tell which show is meant). Set it ALONGSIDE whatever commands you can still produce — do not leave commands empty just because one part is unclear. Null if everything parsed.'
     },
     commands: {
       type: 'array',
-      description: 'One entry per distinct show add/edit/remove requested in the email. Empty if the email is not such a request.',
+      description: 'One entry per distinct show add/edit/remove requested in the email; expand "both"/"all"/plurals into one entry per matching show. Empty only if nothing in the email is actionable.',
       items: {
         type: 'object',
         properties: {
@@ -189,10 +222,11 @@ function extractCommand_(body, props, shows) {
     'Here is the current list of shows on the site, as "#number: name (date)":\n' +
     listing + '\n\n' +
     'Rules:\n' +
-    '- One email may ask for several changes. Put one entry in "commands" per distinct show being added, edited, or removed, in the order the email presents them.\n' +
-    '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If name or a resolvable date is missing for a show being added, set clarification_needed and leave commands empty.\n' +
-    '- edit_show and remove_show must identify a target. Identify it by setting BOTH target_match_name (the show name exactly as it appears in the list above) AND target_match_date (that show\'s YYYY-MM-DD from the list), matching even if the email\'s wording is approximate (plural/singular, partial name). Additionally set target_show_number only if the email explicitly cites a #N. Site show numbers renumber by date whenever an earlier show is added, so name+date is the reliable handle. If a change could refer to more than one show in the list and you cannot tell which, set clarification_needed (name the candidates) and leave commands empty.\n' +
-    '- Do not chain commands that depend on each other within one email (e.g. adding a show and then editing that same just-added show) — if the email needs that, set clarification_needed asking for it as two separate emails.\n' +
+    '- One email may ask for several changes. Put one entry in "commands" per distinct show being added, edited, or removed, in the order the email presents them. The changes are applied independently, so still emit the commands you are sure about even if another part of the email is unclear.\n' +
+    '- If the email deliberately targets several shows at once ("both", "all", "every X show", or a plural like "the Tuesday shows"), expand it into one command per matching show, each pinned to that show\'s own target_match_date (and target_show_number if the email gives one). Do NOT ask for clarification merely because more than one show matches — only when you genuinely cannot tell which shows are meant.\n' +
+    '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If a show being added lacks a name or resolvable date, describe it in clarification_needed instead of emitting an add_show for it.\n' +
+    '- edit_show and remove_show must identify a target. Identify it by setting BOTH target_match_name (the show name exactly as it appears in the list above) AND target_match_date (that show\'s YYYY-MM-DD from the list), matching even if the email\'s wording is approximate (plural/singular, partial name). Additionally set target_show_number only if the email explicitly cites a #N. Site show numbers renumber by date whenever an earlier show is added, so name+date is the reliable handle. If one change could refer to more than one show and you cannot tell which, describe just that change in clarification_needed and still emit the other commands.\n' +
+    '- Do not chain commands that depend on each other within one email (e.g. adding a show and then editing that same just-added show) — describe that in clarification_needed instead.\n' +
     '- Never invent venue names, URLs, or ticket links that are not stated or clearly implied in the email — leave those null rather than guessing.\n' +
     '- If the email is not a request to add/edit/remove any show, return an empty commands array and leave clarification_needed null.\n' +
     '- Today\'s date is ' + today + ' (Asia/Taipei), for resolving relative dates.';

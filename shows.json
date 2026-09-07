@@ -502,5 +502,20 @@
       "How to distinguish the real Confucius from the fake Western one"
     ],
     "video": null
+  },
+  {
+    "number": 31,
+    "color": "coral",
+    "name": "Japanese Open Mic",
+    "instagram": null,
+    "date": "2026-09-05",
+    "time": "8:00 PM",
+    "venueName": "Faker’s comedy club",
+    "venueUrl": "https://maps.app.goo.gl/Y8QpuDhnqZY6uKQF7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Hosting"
+    ],
+    "video": null
   }
 ]

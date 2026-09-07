@@ -1,6 +1,6 @@
 [
   {
-    "number": 30,
+    "number": 32,
     "color": "coral",
     "name": "Taipei Comedy Live",
     "instagram": null,
@@ -13,7 +13,7 @@
     "video": null
   },
   {
-    "number": 29,
+    "number": 31,
     "color": "gold",
     "name": "Craft Comedy",
     "instagram": null,
@@ -504,8 +504,8 @@
     "video": null
   },
   {
-    "number": 31,
-    "color": "coral",
+    "number": 29,
+    "color": "gold",
     "name": "Japanese Open Mic",
     "instagram": null,
     "date": "2026-09-05",
@@ -519,8 +519,8 @@
     "video": null
   },
   {
-    "number": 32,
-    "color": "gold",
+    "number": 30,
+    "color": "coral",
     "name": "Japanese Open Mic",
     "instagram": null,
     "date": "2026-09-08",

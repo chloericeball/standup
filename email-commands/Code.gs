@@ -6,8 +6,10 @@
  * to turn it into a list of structured commands, applies them to the shows.json
  * array with plain array operations (never lets the model touch the file
  * directly), and commits the result to GitHub in a single commit. If any
- * command in the email can't be applied, nothing is committed. shows.html
- * renders itself from that file at load time, so nothing else needs to change.
+ * command in the email can't be applied, nothing is committed. Show numbers
+ * are reassigned by date on every change (earliest = #1), so slotting a show
+ * between two existing dates renumbers the rest. shows.html renders itself
+ * from that file at load time, so nothing else needs to change.
  * You always get a reply email confirming what happened, or explaining why
  * nothing changed.
  *
@@ -74,11 +76,11 @@ function handleMessage_(message, props) {
     throw new Error("Didn't recognize this as a show add/edit/remove request.");
   }
 
-  // Apply every command to one working copy of the array, then commit once.
-  // If any command throws (bad match, missing field), we never reach the
-  // commit, so the whole email is all-or-nothing.
+  // Apply every command to one working copy of the array. If any command
+  // throws (bad match, missing field), we never reach the commit, so the
+  // whole email is all-or-nothing.
   let working = shows;
-  const summaries = [];
+  const ops = [];
   commands.forEach(c => {
     let result;
     if (c.action === 'add_show') {
@@ -91,10 +93,16 @@ function handleMessage_(message, props) {
       throw new Error('Unknown action: ' + c.action);
     }
     working = result.shows;
-    summaries.push(result.summary);
+    ops.push(result);
   });
 
-  const summary = summaries.join('; ');
+  // Renumber every show by date (earliest = #1) so a show slotted between two
+  // existing dates pushes the rest up, and recompute the coral/gold stripe.
+  // Done once, after all commands, so any number the sender cited in the
+  // email still refers to the show they were looking at.
+  working = renumberByDate_(working);
+
+  const summary = ops.map(describeOp_).join('; ');
   const newContent = JSON.stringify(working, null, 2) + '\n';
   commitGithubFile_(props, newContent, file.sha, summary);
 
@@ -104,9 +112,24 @@ function handleMessage_(message, props) {
     props.getProperty('TRUSTED_SENDER'),
     'Website updated: ' + summary,
     'Done.\n\n' + summary + '\n\n' +
+    'The "#" is the current position by date and can shift when an earlier ' +
+    'show is added — to change a show later, name it and give its date.\n\n' +
     'Live site: https://chloericeball.github.io/standup/shows.html\n' +
     'Commit history: https://github.com/' + repo + '/commits/' + branch
   );
+}
+
+// Describe one applied op for the commit message / confirmation email. Leads
+// with name + date (stable) rather than the number (shifts on renumber).
+function describeOp_(op) {
+  if (op.kind === 'add') {
+    return 'Added "' + op.show.name + '" (' + op.show.date + ') — now #' + op.show.number;
+  }
+  if (op.kind === 'edit') {
+    return 'Updated "' + op.show.name + '" (' + op.show.date + ') [' +
+      op.changed.join(', ') + '] — now #' + op.show.number;
+  }
+  return 'Removed "' + op.removed.name + '" (' + op.removed.date + ')';
 }
 
 // ── Gemini: natural language → structured command ──────────────────────────
@@ -130,9 +153,9 @@ const COMMAND_SCHEMA = {
         type: 'object',
         properties: {
           action: { type: 'string', enum: ['add_show', 'edit_show', 'remove_show'] },
-          target_show_number: { type: ['integer', 'null'], description: 'For edit_show/remove_show: the #N in the email, if given.' },
-          target_match_name: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: show name to match.' },
-          target_match_date: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: ISO date (YYYY-MM-DD) to help match.' },
+          target_match_name: { type: ['string', 'null'], description: 'For edit_show/remove_show: the show name exactly as it appears in the list above. Primary way to identify the target.' },
+          target_match_date: { type: ['string', 'null'], description: 'For edit_show/remove_show: the target show\'s date (YYYY-MM-DD) from the list above. Always set this alongside target_match_name.' },
+          target_show_number: { type: ['integer', 'null'], description: 'For edit_show/remove_show: only when the email explicitly cites a #N. Site numbers renumber by date when an earlier show is added, so this is a fallback, not the primary handle.' },
           fields: {
             type: 'object',
             properties: {
@@ -168,7 +191,7 @@ function extractCommand_(body, props, shows) {
     'Rules:\n' +
     '- One email may ask for several changes. Put one entry in "commands" per distinct show being added, edited, or removed, in the order the email presents them.\n' +
     '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If name or a resolvable date is missing for a show being added, set clarification_needed and leave commands empty.\n' +
-    '- edit_show and remove_show must identify a target. If you can confidently match a change to exactly one show in the list above (even if the wording does not exactly match, e.g. plural/singular or approximate name), set target_show_number to that show\'s exact number. Only use target_match_name/target_match_date instead when you cannot confidently pick a single number from the list. If any change could refer to more than one show in the list and you cannot tell which, set clarification_needed (list the matching numbers) and leave commands empty.\n' +
+    '- edit_show and remove_show must identify a target. Identify it by setting BOTH target_match_name (the show name exactly as it appears in the list above) AND target_match_date (that show\'s YYYY-MM-DD from the list), matching even if the email\'s wording is approximate (plural/singular, partial name). Additionally set target_show_number only if the email explicitly cites a #N. Site show numbers renumber by date whenever an earlier show is added, so name+date is the reliable handle. If a change could refer to more than one show in the list and you cannot tell which, set clarification_needed (name the candidates) and leave commands empty.\n' +
     '- Do not chain commands that depend on each other within one email (e.g. adding a show and then editing that same just-added show) — if the email needs that, set clarification_needed asking for it as two separate emails.\n' +
     '- Never invent venue names, URLs, or ticket links that are not stated or clearly implied in the email — leave those null rather than guessing.\n' +
     '- If the email is not a request to add/edit/remove any show, return an empty commands array and leave clarification_needed null.\n' +
@@ -249,33 +272,49 @@ function commitGithubFile_(props, newContent, sha, message) {
 // ── shows.json editing (plain array operations) ────────────────────────────
 
 function findTargetShow_(shows, command) {
-  if (command.target_show_number) {
-    const show = shows.find(s => s.number === command.target_show_number);
-    if (!show) throw new Error('Could not find show #' + command.target_show_number + '.');
-    return show;
-  }
+  const byNumber = command.target_show_number
+    ? shows.find(s => s.number === command.target_show_number)
+    : null;
+
+  let byName = null;
   if (command.target_match_name) {
     const needle = command.target_match_name.toLowerCase();
-    let candidates = shows.filter(s => s.name.toLowerCase().includes(needle));
+    byName = shows.filter(s => s.name.toLowerCase().includes(needle));
     if (command.target_match_date) {
-      const withDate = candidates.filter(s => s.date === command.target_match_date);
-      if (withDate.length) candidates = withDate;
+      const withDate = byName.filter(s => s.date === command.target_match_date);
+      if (withDate.length) byName = withDate;
     }
-    if (candidates.length === 1) return candidates[0];
-    if (candidates.length === 0) throw new Error('Could not find a show matching "' + command.target_match_name + '".');
-    const nums = candidates.map(s => '#' + s.number).join(', ');
-    throw new Error('Found ' + candidates.length + ' shows matching "' + command.target_match_name + '" (' + nums + ') — please specify the show number.');
   }
-  throw new Error('Could not tell which show to change — please include the show number (e.g. #29).');
+
+  // Prefer the name/date match — it survives renumbering. The number is only a
+  // fallback, and a tie-breaker when a name matches more than one show.
+  if (byName && byName.length === 1) return byName[0];
+  if (byName && byName.length > 1) {
+    if (byNumber && byName.indexOf(byNumber) !== -1) return byNumber;
+    const found = byName.map(s => '"' + s.name + '" (' + s.date + ')').join(', ');
+    throw new Error('More than one show matches "' + command.target_match_name +
+      '": ' + found + ' — please give the exact name and date.');
+  }
+
+  if (byNumber) return byNumber;
+
+  if (command.target_show_number) {
+    throw new Error('Could not find show #' + command.target_show_number +
+      '. Numbers shift when an earlier show is added — try the show name and date.');
+  }
+  if (command.target_match_name) {
+    throw new Error('Could not find a show matching "' + command.target_match_name + '".');
+  }
+  throw new Error('Could not tell which show to change — include the show name and date.');
 }
 
 function addShow_(shows, fields) {
   if (!fields.name || !fields.date) throw new Error('Missing show name or date.');
-  const maxNumber = shows.reduce((max, s) => Math.max(max, s.number || 0), 0);
-  const number = maxNumber + 1;
+  // number/color are placeholders; renumberByDate_ sets the real values once
+  // all commands in the email have been applied.
   const show = {
-    number,
-    color: ['coral', 'gold'][number % 2],
+    number: 0,
+    color: 'coral',
     name: fields.name,
     instagram: null,
     date: fields.date,
@@ -286,8 +325,7 @@ function addShow_(shows, fields) {
     notes: fields.notes || [],
     video: null
   };
-  const updated = shows.concat([show]);
-  return { shows: updated, summary: 'Added #' + number + ' ' + show.name + ' (' + show.date + ')' };
+  return { shows: shows.concat([show]), kind: 'add', show: show };
 }
 
 function editShow_(shows, command) {
@@ -301,13 +339,36 @@ function editShow_(shows, command) {
     }
   });
   if (!changed.length) throw new Error('Nothing to change was specified.');
-  return { shows: shows, summary: 'Updated #' + target.number + ' (' + changed.join(', ') + ')' };
+  return { shows: shows, kind: 'edit', show: target, changed: changed };
 }
 
 function removeShow_(shows, command) {
   const target = findTargetShow_(shows, command);
-  const updated = shows.filter(s => s !== target);
-  return { shows: updated, summary: 'Removed #' + target.number + ' ' + target.name };
+  return {
+    shows: shows.filter(s => s !== target),
+    kind: 'remove',
+    removed: { name: target.name, date: target.date }
+  };
+}
+
+/**
+ * Reassign every show's number by date (earliest = #1) and recompute its
+ * coral/gold stripe. The stored array order is left untouched — shows.html
+ * sorts by date on load — so a commit diff only touches the number/color of
+ * shows whose position actually changed. Undated shows sort last.
+ */
+function renumberByDate_(shows) {
+  shows.slice()
+    .sort((a, b) => {
+      const da = a.date || '9999-12-31';
+      const db = b.date || '9999-12-31';
+      return da < db ? -1 : da > db ? 1 : 0;
+    })
+    .forEach((s, i) => {
+      s.number = i + 1;
+      s.color = ['coral', 'gold'][(i + 1) % 2];
+    });
+  return shows;
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────

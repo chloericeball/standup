@@ -2,12 +2,14 @@
  * Email → website updater for chloericeball/standup (shows.json).
  *
  * Send a natural-language email to your command alias (see README) describing
- * a show to add, edit, or remove. This script reads it, asks Gemini to turn
- * it into a structured command, applies that command to the shows.json array
- * with plain array operations (never lets the model touch the file directly),
- * and commits the result to GitHub. shows.html renders itself from that file
- * at load time, so nothing else needs to change. You always get a reply
- * email confirming what happened, or explaining why nothing changed.
+ * one or more shows to add, edit, or remove. This script reads it, asks Gemini
+ * to turn it into a list of structured commands, applies them to the shows.json
+ * array with plain array operations (never lets the model touch the file
+ * directly), and commits the result to GitHub in a single commit. If any
+ * command in the email can't be applied, nothing is committed. shows.html
+ * renders itself from that file at load time, so nothing else needs to change.
+ * You always get a reply email confirming what happened, or explaining why
+ * nothing changed.
  *
  * Setup: see README.md in this folder.
  */
@@ -63,30 +65,45 @@ function handleMessage_(message, props) {
 
   const command = extractCommand_(body, props, shows);
 
-  if (command.action === 'unsupported' || command.clarification_needed) {
-    throw new Error(command.clarification_needed || "Didn't recognize this as a show add/edit/remove request.");
+  if (command.clarification_needed) {
+    throw new Error(command.clarification_needed);
   }
 
-  let result;
-  if (command.action === 'add_show') {
-    result = addShow_(shows, command.fields || {});
-  } else if (command.action === 'edit_show') {
-    result = editShow_(shows, command);
-  } else if (command.action === 'remove_show') {
-    result = removeShow_(shows, command);
-  } else {
-    throw new Error('Unknown action: ' + command.action);
+  const commands = command.commands || [];
+  if (!commands.length) {
+    throw new Error("Didn't recognize this as a show add/edit/remove request.");
   }
 
-  const newContent = JSON.stringify(result.shows, null, 2) + '\n';
-  commitGithubFile_(props, newContent, file.sha, result.summary);
+  // Apply every command to one working copy of the array, then commit once.
+  // If any command throws (bad match, missing field), we never reach the
+  // commit, so the whole email is all-or-nothing.
+  let working = shows;
+  const summaries = [];
+  commands.forEach(c => {
+    let result;
+    if (c.action === 'add_show') {
+      result = addShow_(working, c.fields || {});
+    } else if (c.action === 'edit_show') {
+      result = editShow_(working, c);
+    } else if (c.action === 'remove_show') {
+      result = removeShow_(working, c);
+    } else {
+      throw new Error('Unknown action: ' + c.action);
+    }
+    working = result.shows;
+    summaries.push(result.summary);
+  });
+
+  const summary = summaries.join('; ');
+  const newContent = JSON.stringify(working, null, 2) + '\n';
+  commitGithubFile_(props, newContent, file.sha, summary);
 
   const repo = props.getProperty('GITHUB_REPO');
   const branch = props.getProperty('GITHUB_BRANCH') || 'main';
   GmailApp.sendEmail(
     props.getProperty('TRUSTED_SENDER'),
-    'Website updated: ' + result.summary,
-    'Done.\n\n' + result.summary + '\n\n' +
+    'Website updated: ' + summary,
+    'Done.\n\n' + summary + '\n\n' +
     'Live site: https://chloericeball.github.io/standup/shows.html\n' +
     'Commit history: https://github.com/' + repo + '/commits/' + branch
   );
@@ -102,28 +119,38 @@ const GEMINI_MODEL = 'gemini-3.6-flash';
 const COMMAND_SCHEMA = {
   type: 'object',
   properties: {
-    action: { type: 'string', enum: ['add_show', 'edit_show', 'remove_show', 'unsupported'] },
     clarification_needed: {
       type: ['string', 'null'],
-      description: 'Set (and leave other fields null) if required info is missing or the request is ambiguous. Otherwise null.'
+      description: 'Set (and leave commands empty) if required info is missing or any part of the email is ambiguous. Otherwise null.'
     },
-    target_show_number: { type: ['integer', 'null'], description: 'For edit_show/remove_show: the #N in the email, if given.' },
-    target_match_name: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: show name to match.' },
-    target_match_date: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: ISO date (YYYY-MM-DD) to help match.' },
-    fields: {
-      type: 'object',
-      properties: {
-        name: { type: ['string', 'null'] },
-        date: { type: ['string', 'null'], description: 'ISO YYYY-MM-DD' },
-        time: { type: ['string', 'null'], description: 'Display text, e.g. "8:00 PM" or "TBD"' },
-        venueName: { type: ['string', 'null'] },
-        venueUrl: { type: ['string', 'null'], description: 'Google Maps link or similar, only if stated' },
-        ticketUrl: { type: ['string', 'null'] },
-        notes: { type: ['array', 'null'], items: { type: 'string' } }
+    commands: {
+      type: 'array',
+      description: 'One entry per distinct show add/edit/remove requested in the email. Empty if the email is not such a request.',
+      items: {
+        type: 'object',
+        properties: {
+          action: { type: 'string', enum: ['add_show', 'edit_show', 'remove_show'] },
+          target_show_number: { type: ['integer', 'null'], description: 'For edit_show/remove_show: the #N in the email, if given.' },
+          target_match_name: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: show name to match.' },
+          target_match_date: { type: ['string', 'null'], description: 'For edit_show/remove_show without a number: ISO date (YYYY-MM-DD) to help match.' },
+          fields: {
+            type: 'object',
+            properties: {
+              name: { type: ['string', 'null'] },
+              date: { type: ['string', 'null'], description: 'ISO YYYY-MM-DD' },
+              time: { type: ['string', 'null'], description: 'Display text, e.g. "8:00 PM" or "TBD"' },
+              venueName: { type: ['string', 'null'] },
+              venueUrl: { type: ['string', 'null'], description: 'Google Maps link or similar, only if stated' },
+              ticketUrl: { type: ['string', 'null'] },
+              notes: { type: ['array', 'null'], items: { type: 'string' } }
+            }
+          }
+        },
+        required: ['action']
       }
     }
   },
-  required: ['action', 'fields']
+  required: ['commands']
 };
 
 function extractCommand_(body, props, shows) {
@@ -139,10 +166,12 @@ function extractCommand_(body, props, shows) {
     'Here is the current list of shows on the site, as "#number: name (date)":\n' +
     listing + '\n\n' +
     'Rules:\n' +
-    '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If name or a resolvable date is missing, set clarification_needed instead and leave action as add_show.\n' +
-    '- edit_show and remove_show must identify a target. If you can confidently match the email to exactly one show in the list above (even if the wording does not exactly match, e.g. plural/singular or approximate name), set target_show_number to that show\'s exact number. Only use target_match_name/target_match_date instead when you cannot confidently pick a single number from the list. If the email could refer to more than one show in the list and you cannot tell which, set clarification_needed and list the matching numbers.\n' +
+    '- One email may ask for several changes. Put one entry in "commands" per distinct show being added, edited, or removed, in the order the email presents them.\n' +
+    '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If name or a resolvable date is missing for a show being added, set clarification_needed and leave commands empty.\n' +
+    '- edit_show and remove_show must identify a target. If you can confidently match a change to exactly one show in the list above (even if the wording does not exactly match, e.g. plural/singular or approximate name), set target_show_number to that show\'s exact number. Only use target_match_name/target_match_date instead when you cannot confidently pick a single number from the list. If any change could refer to more than one show in the list and you cannot tell which, set clarification_needed (list the matching numbers) and leave commands empty.\n' +
+    '- Do not chain commands that depend on each other within one email (e.g. adding a show and then editing that same just-added show) — if the email needs that, set clarification_needed asking for it as two separate emails.\n' +
     '- Never invent venue names, URLs, or ticket links that are not stated or clearly implied in the email — leave those null rather than guessing.\n' +
-    '- If the email is not a request to add/edit/remove a show, set action to "unsupported".\n' +
+    '- If the email is not a request to add/edit/remove any show, return an empty commands array and leave clarification_needed null.\n' +
     '- Today\'s date is ' + today + ' (Asia/Taipei), for resolving relative dates.';
 
   const url = 'https://generativelanguage.googleapis.com/v1beta/interactions?key=' + apiKey;
@@ -168,7 +197,8 @@ function extractCommand_(body, props, shows) {
   const text = textPart && textPart.text;
   if (!text) throw new Error('Model did not return a structured command. Raw response: ' + resp.getContentText().slice(0, 500));
   const command = JSON.parse(text);
-  command.fields = command.fields || {};
+  command.commands = command.commands || [];
+  command.commands.forEach(c => { c.fields = c.fields || {}; });
   return command;
 }
 

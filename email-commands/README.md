@@ -1,10 +1,10 @@
 # Email → website updater
 
-Send a plain-English email to a special address and it adds/edits/removes a
-show in `shows.json`, commits it to GitHub, and GitHub Pages redeploys
-automatically (same pipeline as pushing manually). `shows.html` builds its
-show list from `shows.json` at load time, so editing the data file is all
-that's needed — no HTML to touch.
+Send a plain-English email to a special address and it adds/edits/removes
+one or more shows in `shows.json`, commits it to GitHub, and GitHub Pages
+redeploys automatically (same pipeline as pushing manually). `shows.html`
+builds its show list from `shows.json` at load time, so editing the data file
+is all that's needed — no HTML to touch.
 
 Nothing runs on this laptop — it's a Google Apps Script that Google runs on a
 timer, checking your Gmail every 10 minutes.
@@ -19,12 +19,15 @@ timer, checking your Gmail every 10 minutes.
    affect anything). Anything else is ignored, so a stranger emailing that
    alias can't do anything.
 3. The email body is sent to Gemini (Google's AI, free tier) with instructions
-   to extract a structured command (add/edit/remove + fields) — Gemini never
-   touches the JSON file directly, it only fills in a fixed form.
-4. The script applies that command to the `shows.json` array (add an entry,
-   change some fields on one, or remove one), commits straight to GitHub via
-   the API, and replies to you confirming what changed (or explaining why it
-   didn't do anything, if something didn't parse).
+   to extract a list of structured commands (add/edit/remove + fields), one
+   per distinct change in the email — Gemini never touches the JSON file
+   directly, it only fills in a fixed form.
+4. The script applies those commands in order to the `shows.json` array (add
+   an entry, change some fields on one, remove one), then commits the result
+   straight to GitHub via the API in a **single commit**, and replies to you
+   confirming what changed (or explaining why it didn't do anything, if
+   something didn't parse). If any one command can't be applied, nothing is
+   committed.
 
 New/edited shows automatically land in the right place — the page sorts
 shows by date into Upcoming/Past on every load, so you never need to say
@@ -42,6 +45,16 @@ Just write like you're texting yourself. Examples:
 - "Remove show #31, it got cancelled."
 - "Update #28's venue to Legacy Taipei, https://maps.app.goo.gl/xyz"
 - "Add a note to #30: opening for a touring comic."
+
+One email can carry several changes — they're applied together in one commit:
+
+- "Bump #29 to 9pm, remove #31 (cancelled), and add a note to #30: opening
+  for a touring comic."
+- "Add two shows: Craft Comedy at Two Three on Oct 3 8pm, and Open Mic at
+  Revolver on Oct 10 7:30pm."
+
+The one thing you can't do in a single email is add a show and then edit that
+same just-added show (it has no number yet) — send that as two emails.
 
 Good to include when adding a show: **name** and **date** are required
 (everything else defaults to TBD or is left off). For edits/removes, include
@@ -95,8 +108,9 @@ this script instead.
    requests) — approve it. This creates the Gmail labels and the 10-minute
    trigger.
 6. Select `testConnections` → **Run**. Check **Executions** (left sidebar) —
-   it should log a successful GitHub read and a successful Gemini extraction,
-   with no errors. This doesn't touch email or commit anything.
+   it should log a successful GitHub read and a successful Gemini extraction
+   (`{"commands":[...]}`), with no errors. This doesn't touch email or commit
+   anything.
 
 ### 4. Try it
 
@@ -114,7 +128,12 @@ new commit on GitHub. Then send a follow-up to remove it:
 
 - New shows are always numbered `max + 1`. Where they land on the page
   (Upcoming vs. Past, and their order) is worked out automatically from the
-  date every time the page loads — you never need to specify that.
+  date every time the page loads — you never need to specify that. Adding
+  several shows in one email numbers them `max + 1`, `max + 2`, … in the
+  order they appear.
+- Several changes in one email are all-or-nothing: they're applied to one
+  working copy and committed once, so a single bad match (or missing field)
+  on any of them means the whole email is rejected and nothing changes.
 - Edits change only the fields you mention on the matching show's JSON entry
   — everything else (including Instagram icon and YouTube video, if any) is
   left untouched.

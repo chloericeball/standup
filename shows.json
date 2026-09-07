@@ -517,5 +517,20 @@
       "Hosting"
     ],
     "video": null
+  },
+  {
+    "number": 32,
+    "color": "gold",
+    "name": "Japanese Open Mic",
+    "instagram": null,
+    "date": "2026-09-08",
+    "time": "9:00 PM",
+    "venueName": "Riff Bar",
+    "venueUrl": "https://maps.app.goo.gl/woHaK3ZdCdBFkXT97?g_st=ic",
+    "ticketUrl": null,
+    "notes": [
+      "Hosting"
+    ],
+    "video": null
   }
 ]

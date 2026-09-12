@@ -1,6 +1,6 @@
 [
   {
-    "number": 32,
+    "number": 34,
     "color": "coral",
     "name": "Taipei Comedy Live",
     "instagram": null,
@@ -534,8 +534,8 @@
     "video": null
   },
   {
-    "number": 33,
-    "color": "blue",
+    "number": 32,
+    "color": "coral",
     "name": "Last Train Open Mic",
     "instagram": null,
     "date": "2026-09-18",
@@ -546,6 +546,19 @@
     "notes": [
       "5 min"
     ],
+    "video": null
+  },
+  {
+    "number": 33,
+    "color": "gold",
+    "name": "Roast Battle",
+    "instagram": null,
+    "date": "2026-09-19",
+    "time": "9:00 PM",
+    "venueName": "Tokyo Comedy Club",
+    "venueUrl": null,
+    "ticketUrl": null,
+    "notes": [],
     "video": null
   }
 ]

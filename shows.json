@@ -532,5 +532,20 @@
       "Hosting in Japanese"
     ],
     "video": null
+  },
+  {
+    "number": 33,
+    "color": "blue",
+    "name": "Last Train Open Mic",
+    "instagram": null,
+    "date": "2026-09-18",
+    "time": "10:00 PM",
+    "venueName": "Tokyo Comedy Bar",
+    "venueUrl": null,
+    "ticketUrl": null,
+    "notes": [
+      "5 min"
+    ],
+    "video": null
   }
 ]

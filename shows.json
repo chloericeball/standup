@@ -528,7 +528,7 @@
     "date": "2026-09-18",
     "time": "10:00 PM",
     "venueName": "Tokyo Comedy Bar",
-    "venueUrl": null,
+    "venueUrl": "https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9",
     "ticketUrl": null,
     "notes": [
       "5 min"
@@ -555,8 +555,8 @@
     "instagram": null,
     "date": "2026-09-19",
     "time": "9:00 PM",
-    "venueName": "Tokyo Comedy Club",
-    "venueUrl": null,
+    "venueName": "Tokyo Comedy Bar",
+    "venueUrl": "https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9",
     "ticketUrl": null,
     "notes": [],
     "video": null

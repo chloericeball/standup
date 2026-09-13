@@ -346,6 +346,7 @@ function addShow_(shows, fields) {
   if (!fields.name || !fields.date) throw new Error('Missing show name or date.');
   // number/color are placeholders; renumberByDate_ sets the real values once
   // all commands in the email have been applied.
+  const venueName = fields.venueName || 'TBD';
   const show = {
     number: 0,
     color: 'coral',
@@ -353,13 +354,25 @@ function addShow_(shows, fields) {
     instagram: null,
     date: fields.date,
     time: fields.time || null,
-    venueName: fields.venueName || 'TBD',
-    venueUrl: fields.venueUrl || null,
+    venueName: venueName,
+    venueUrl: fields.venueUrl || findVenueUrl_(shows, venueName),
     ticketUrl: fields.ticketUrl || null,
     notes: fields.notes || [],
     video: null
   };
   return { shows: shows.concat([show]), kind: 'add', show: show };
+}
+
+// The email doesn't always repeat a venue's map link once it's been given
+// before — reuse it from the most recent past show at the same venue
+// (case-insensitive) if the email didn't state one itself.
+function findVenueUrl_(shows, venueName) {
+  if (!venueName || venueName === 'TBD') return null;
+  const needle = venueName.toLowerCase();
+  const matches = shows.filter(s => s.venueUrl && s.venueName && s.venueName.toLowerCase() === needle);
+  if (!matches.length) return null;
+  matches.sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+  return matches[0].venueUrl;
 }
 
 function editShow_(shows, command) {

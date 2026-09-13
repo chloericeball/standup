@@ -386,23 +386,23 @@ function removeShow_(shows, command) {
 }
 
 /**
- * Reassign every show's number by date (earliest = #1) and recompute its
- * coral/gold stripe. The stored array order is left untouched — shows.html
- * sorts by date on load — so a commit diff only touches the number/color of
- * shows whose position actually changed. Undated shows sort last.
+ * Sort every show by date (earliest = #1), reassigning number and the
+ * coral/gold stripe to match. Returns a new array in that order, so
+ * shows.json is stored chronologically too — not just as rendered by
+ * shows.html, which re-sorts by date on load regardless. Undated shows sort
+ * last.
  */
 function renumberByDate_(shows) {
-  shows.slice()
-    .sort((a, b) => {
-      const da = a.date || '9999-12-31';
-      const db = b.date || '9999-12-31';
-      return da < db ? -1 : da > db ? 1 : 0;
-    })
-    .forEach((s, i) => {
-      s.number = i + 1;
-      s.color = ['coral', 'gold'][(i + 1) % 2];
-    });
-  return shows;
+  const sorted = shows.slice().sort((a, b) => {
+    const da = a.date || '9999-12-31';
+    const db = b.date || '9999-12-31';
+    return da < db ? -1 : da > db ? 1 : 0;
+  });
+  sorted.forEach((s, i) => {
+    s.number = i + 1;
+    s.color = ['coral', 'gold'][(i + 1) % 2];
+  });
+  return sorted;
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────

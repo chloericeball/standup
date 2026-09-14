@@ -523,6 +523,19 @@
   {
     "number": 32,
     "color": "coral",
+    "name": "日本語OPEN MIC in 代々木 第3回",
+    "instagram": null,
+    "date": "2026-09-18",
+    "time": "8:00 PM - 9:00 PM",
+    "venueName": "アルティカセブン",
+    "venueUrl": "https://maps.app.goo.gl/MkgHkwSF2R63nysw6?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 33,
+    "color": "gold",
     "name": "Last Train Open Mic",
     "instagram": null,
     "date": "2026-09-18",
@@ -533,19 +546,6 @@
     "notes": [
       "5 min"
     ],
-    "video": null
-  },
-  {
-    "number": 33,
-    "color": "gold",
-    "name": "日本語OPEN MIC in 代々木 第3回",
-    "instagram": null,
-    "date": "2026-09-18",
-    "time": "8:00 PM - 9:00 PM",
-    "venueName": "アルティカセブン",
-    "venueUrl": "https://maps.app.goo.gl/MkgHkwSF2R63nysw6?g_st=ic",
-    "ticketUrl": null,
-    "notes": [],
     "video": null
   },
   {

@@ -399,23 +399,42 @@ function removeShow_(shows, command) {
 }
 
 /**
- * Sort every show by date (earliest = #1), reassigning number and the
- * coral/gold stripe to match. Returns a new array in that order, so
+ * Sort every show by date then time (earliest = #1), reassigning number and
+ * the coral/gold stripe to match. Returns a new array in that order, so
  * shows.json is stored chronologically too — not just as rendered by
  * shows.html, which re-sorts by date on load regardless. Undated shows sort
- * last.
+ * last; same-date shows without a parseable time sort after same-date shows
+ * that have one.
  */
 function renumberByDate_(shows) {
   const sorted = shows.slice().sort((a, b) => {
     const da = a.date || '9999-12-31';
     const db = b.date || '9999-12-31';
-    return da < db ? -1 : da > db ? 1 : 0;
+    if (da !== db) return da < db ? -1 : 1;
+    return timeToMinutes_(a.time) - timeToMinutes_(b.time);
   });
   sorted.forEach((s, i) => {
     s.number = i + 1;
     s.color = ['coral', 'gold'][(i + 1) % 2];
   });
   return sorted;
+}
+
+/**
+ * Minutes since midnight for a show's start time, used to break same-date
+ * ties in renumberByDate_. Handles "9pm", "9:30 PM", and ranges like
+ * "8:00 PM - 9:00 PM" (uses the range's start). Missing or unparseable
+ * times sort after (Infinity) so they don't jump ahead of timed shows on
+ * the same date.
+ */
+function timeToMinutes_(time) {
+  if (!time) return Infinity;
+  const match = time.match(/(\d{1,2})(?::(\d{2}))?\s*([ap])m/i);
+  if (!match) return Infinity;
+  let hour = parseInt(match[1], 10) % 12;
+  const minute = match[2] ? parseInt(match[2], 10) : 0;
+  if (match[3].toLowerCase() === 'p') hour += 12;
+  return hour * 60 + minute;
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────

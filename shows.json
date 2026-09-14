@@ -571,7 +571,9 @@
     "venueName": "Comedy Plus",
     "venueUrl": "https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic",
     "ticketUrl": "https://comedyclub.kktix.cc/events/taipeicomedylive0926",
-    "notes": [],
+    "notes": [
+      "15 min"
+    ],
     "video": null
   }
 ]

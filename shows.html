@@ -528,7 +528,9 @@ function sortShowsByDate() {
             const match = meta.textContent.trim().match(/^(\w+ \d+, \d{4})/);
             if (match) date = new Date(match[1]);
         }
-        const item = { row: el, date: date, videos: [] };
+        const numEl = el.querySelector('.show-num');
+        const num = numEl ? parseInt(numEl.textContent.replace('#', ''), 10) : 0;
+        const item = { row: el, date: date, num: num, videos: [] };
         for (let j = i + 1; j < children.length && children[j].classList.contains('show-video-strip'); j++) {
             item.videos.push(children[j]);
         }
@@ -541,9 +543,9 @@ function sortShowsByDate() {
     });
 
     const upcoming = allItems.filter(function(item) { return !item.date || item.date >= today; })
-                              .sort(function(a, b) { return b.date - a.date; });
+                              .sort(function(a, b) { return (b.date - a.date) || (b.num - a.num); });
     const past = allItems.filter(function(item) { return item.date && item.date < today; })
-                          .sort(function(a, b) { return b.date - a.date; });
+                          .sort(function(a, b) { return (b.date - a.date) || (b.num - a.num); });
 
     let ref = upcomingDivider;
     upcoming.forEach(function(item) {

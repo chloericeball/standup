@@ -651,7 +651,7 @@ function buildShowRowHtml(show) {
           '                </a>'
         : '';
 
-    return '        <div class="show-row" data-cat="' + showCategory(show) + '" data-video="' + (show.video ? '1' : '0') + '">\n' +
+    return '        <div class="show-row" data-cats="' + showCategories(show) + '" data-video="' + (show.video ? '1' : '0') + '">\n' +
         '            <div class="show-main">\n' +
         '                <span class="show-num num-' + show.color + '">#' + show.number + '</span>\n' +
         '                <div class="show-info">\n' +
@@ -663,17 +663,23 @@ function buildShowRowHtml(show) {
 }
 
 // ── Filters ──
-function showCategory(show) {
-    if (/funny women/i.test(show.name)) return 'funny-women';
-    if (/craft|kraft/i.test(show.name)) return 'craft';
-    return 'other';
+// Shows outside Taipei, matched on name + venue (e.g. "MADE IN TAIWAN – Tainan", "Tokyo Comedy Bar").
+// Add a city here when performing somewhere new.
+const ELSEWHERE_RE = /tokyo|東京|代々木|hsinchu|taichung|kaohsiung|tainan/i;
+
+// A show can belong to several filters (e.g. Funny Women shows are also Taipei shows).
+function showCategories(show) {
+    const cats = [];
+    if (/funny women/i.test(show.name)) cats.push('funny-women');
+    cats.push(ELSEWHERE_RE.test(show.name + ' ' + show.venueName) ? 'elsewhere' : 'taipei');
+    return cats.join(' ');
 }
 
 const FILTER_CATEGORIES = [
     { key: 'all', label: 'All' },
     { key: 'funny-women', label: 'Funny Women' },
-    { key: 'craft', label: 'Craft' },
-    { key: 'other', label: 'Other' }
+    { key: 'taipei', label: 'Taipei' },
+    { key: 'elsewhere', label: 'Elsewhere' }
 ];
 const filterState = { cat: 'all', videoOnly: false };
 
@@ -681,7 +687,7 @@ function buildFilters() {
     const box = document.getElementById('show-filters');
     const rows = Array.from(document.querySelectorAll('#list-view .show-row'));
     const counts = { all: rows.length };
-    rows.forEach(function(r) { counts[r.dataset.cat] = (counts[r.dataset.cat] || 0) + 1; });
+    rows.forEach(function(r) { r.dataset.cats.split(' ').forEach(function(c) { counts[c] = (counts[c] || 0) + 1; }); });
     const videoCount = rows.filter(function(r) { return r.dataset.video === '1'; }).length;
 
     box.innerHTML = '<div class="filter-chips">' +
@@ -720,7 +726,7 @@ function applyFilters() {
             dividers.push(dividerVisible);
             section = dividers.length === 1 ? 'upcoming' : 'past';
         } else if (el.classList.contains('show-row')) {
-            const show = (filterState.cat === 'all' || el.dataset.cat === filterState.cat) &&
+            const show = (filterState.cat === 'all' || el.dataset.cats.split(' ').indexOf(filterState.cat) !== -1) &&
                          (!filterState.videoOnly || el.dataset.video === '1');
             el.hidden = !show;
             if (show) {

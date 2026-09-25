@@ -15,10 +15,7 @@
     "notes": [
       "How to distinguish the real Confucius from the fake Western one"
     ],
-    "video": {
-      "url": "https://youtu.be/v8aL4IUJuCI",
-      "id": "v8aL4IUJuCI"
-    }
+    "video": null
   },
   {
     "number": 2,
@@ -478,7 +475,10 @@
     "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
     "ticketUrl": "https://www.eventbrite.co.uk/e/funny-women-taipei-september-tickets-1998125627540?utm-campaign=social&utm-content=attendeeshare&utm-medium=discovery&utm-term=listing&utm-source=wsa&aff=ebdsshwebmobile",
     "notes": [],
-    "video": null
+    "video": {
+      "url": "https://youtu.be/lwXGT494v-M",
+      "id": "lwXGT494v-M"
+    }
   },
   {
     "number": 29,

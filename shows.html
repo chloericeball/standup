@@ -168,6 +168,61 @@
             padding-top: 8rem;
         }
 
+        /* ── Show Filters ── */
+        .show-filters {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-chip {
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #aaa;
+            background: transparent;
+            border: 1px solid #2a2a2a;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .filter-chip:hover {
+            color: #fff;
+            border-color: #555;
+        }
+
+        .filter-chip.active {
+            color: #fff;
+            background: #3332FF;
+            border-color: #3332FF;
+        }
+
+        .filter-chip .count {
+            opacity: 0.7;
+            font-weight: 400;
+            margin-left: 0.25rem;
+        }
+
+        .filter-chip.video-chip {
+            margin-left: auto;
+        }
+
+        .filter-summary {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.9rem;
+        }
+
+        .show-row[hidden], .shows-divider[hidden] {
+            display: none;
+        }
+
         /* ── Shows Divider ── */
         .shows-divider {
             font-size: 0.7rem;
@@ -445,6 +500,8 @@
         <div class="section-label reveal">I look better in person</div>
         <h2 class="section-heading reveal">It's Show Time!</h2>
 
+        <div class="show-filters reveal" id="show-filters"></div>
+
         <div id="list-view">
         <div class="shows-divider">Upcoming</div>
         <div class="shows-divider">Past</div>
@@ -594,7 +651,7 @@ function buildShowRowHtml(show) {
           '                </a>'
         : '';
 
-    return '        <div class="show-row">\n' +
+    return '        <div class="show-row" data-cat="' + showCategory(show) + '" data-video="' + (show.video ? '1' : '0') + '">\n' +
         '            <div class="show-main">\n' +
         '                <span class="show-num num-' + show.color + '">#' + show.number + '</span>\n' +
         '                <div class="show-info">\n' +
@@ -603,6 +660,81 @@ function buildShowRowHtml(show) {
         '                </div>' + videoHtml + '\n' +
         '            </div>\n' +
         '        </div>\n';
+}
+
+// ── Filters ──
+function showCategory(show) {
+    if (/funny women/i.test(show.name)) return 'funny-women';
+    if (/craft|kraft/i.test(show.name)) return 'craft';
+    return 'other';
+}
+
+const FILTER_CATEGORIES = [
+    { key: 'all', label: 'All' },
+    { key: 'funny-women', label: 'Funny Women' },
+    { key: 'craft', label: 'Craft' },
+    { key: 'other', label: 'Other' }
+];
+const filterState = { cat: 'all', videoOnly: false };
+
+function buildFilters() {
+    const box = document.getElementById('show-filters');
+    const rows = Array.from(document.querySelectorAll('#list-view .show-row'));
+    const counts = { all: rows.length };
+    rows.forEach(function(r) { counts[r.dataset.cat] = (counts[r.dataset.cat] || 0) + 1; });
+    const videoCount = rows.filter(function(r) { return r.dataset.video === '1'; }).length;
+
+    box.innerHTML = '<div class="filter-chips">' +
+        FILTER_CATEGORIES.map(function(c) {
+            return '<button type="button" class="filter-chip" data-cat="' + c.key + '">' + c.label +
+                '<span class="count">' + (counts[c.key] || 0) + '</span></button>';
+        }).join('') +
+        '<button type="button" class="filter-chip video-chip" data-video-toggle>▶ With video<span class="count">' + videoCount + '</span></button>' +
+        '</div><div class="filter-summary" id="filter-summary"></div>';
+
+    box.addEventListener('click', function(e) {
+        const chip = e.target.closest('.filter-chip');
+        if (!chip) return;
+        if (chip.hasAttribute('data-video-toggle')) filterState.videoOnly = !filterState.videoOnly;
+        else filterState.cat = chip.dataset.cat;
+        applyFilters();
+    });
+    applyFilters();
+}
+
+function applyFilters() {
+    const box = document.getElementById('show-filters');
+    box.querySelectorAll('.filter-chip').forEach(function(chip) {
+        const on = chip.hasAttribute('data-video-toggle') ? filterState.videoOnly : chip.dataset.cat === filterState.cat;
+        chip.classList.toggle('active', on);
+        chip.setAttribute('aria-pressed', on);
+    });
+
+    let section = 'upcoming';
+    let done = 0, upcoming = 0;
+    const dividers = [];
+    let dividerVisible = null;
+    Array.from(document.getElementById('list-view').children).forEach(function(el) {
+        if (el.classList.contains('shows-divider')) {
+            dividerVisible = { el: el, count: 0 };
+            dividers.push(dividerVisible);
+            section = dividers.length === 1 ? 'upcoming' : 'past';
+        } else if (el.classList.contains('show-row')) {
+            const show = (filterState.cat === 'all' || el.dataset.cat === filterState.cat) &&
+                         (!filterState.videoOnly || el.dataset.video === '1');
+            el.hidden = !show;
+            if (show) {
+                if (dividerVisible) dividerVisible.count++;
+                if (section === 'past') done++; else upcoming++;
+            }
+        }
+    });
+    dividers.forEach(function(d) { d.el.hidden = d.count === 0; });
+
+    const total = done + upcoming;
+    document.getElementById('filter-summary').textContent = total === 0
+        ? 'No shows match these filters.'
+        : done + ' done' + (upcoming ? ' · ' + upcoming + ' upcoming' : '');
 }
 
 async function loadShows() {
@@ -620,6 +752,7 @@ async function loadShows() {
         observer.observe(el);
     });
     sortShowsByDate();
+    buildFilters();
 }
 
 loadShows();

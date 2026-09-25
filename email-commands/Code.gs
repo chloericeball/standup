@@ -189,6 +189,7 @@ const COMMAND_SCHEMA = {
           target_match_name: { type: ['string', 'null'], description: 'For edit_show/remove_show: the show name exactly as it appears in the list above. Primary way to identify the target.' },
           target_match_date: { type: ['string', 'null'], description: 'For edit_show/remove_show: the target show\'s date (YYYY-MM-DD) from the list above. Always set this alongside target_match_name.' },
           target_show_number: { type: ['integer', 'null'], description: 'For edit_show/remove_show: only when the email explicitly cites a #N. Site numbers renumber by date when an earlier show is added, so this is a fallback, not the primary handle.' },
+          notes_mode: { type: ['string', 'null'], enum: ['append', 'replace', null], description: 'For edit_show when fields.notes is set: "append" when the email says to add a note (keep the show\'s existing notes and put the new one(s) after them); "replace" only when the email says to change/replace/set the notes.' },
           fields: {
             type: 'object',
             properties: {
@@ -227,6 +228,7 @@ function extractCommand_(body, props, shows) {
     '- add_show requires at minimum fields.name and a resolvable fields.date (absolute YYYY-MM-DD; relative dates like "next Friday" are fine to resolve using today\'s date). If a show being added lacks a name or resolvable date, describe it in clarification_needed instead of emitting an add_show for it.\n' +
     '- edit_show and remove_show must identify a target. Identify it by setting BOTH target_match_name (the show name exactly as it appears in the list above) AND target_match_date (that show\'s YYYY-MM-DD from the list), matching even if the email\'s wording is approximate (plural/singular, partial name). Additionally set target_show_number only if the email explicitly cites a #N. Site show numbers renumber by date whenever an earlier show is added, so name+date is the reliable handle. If one change could refer to more than one show and you cannot tell which, describe just that change in clarification_needed and still emit the other commands.\n' +
     '- Do not chain commands that depend on each other within one email (e.g. adding a show and then editing that same just-added show) — describe that in clarification_needed instead.\n' +
+    '- For edit_show with notes: set notes_mode to "append" when the email adds a note, and "replace" only when it explicitly changes or replaces the existing notes.\n' +
     '- Never invent venue names, URLs, or ticket links that are not stated or clearly implied in the email — leave those null rather than guessing.\n' +
     '- If the email is not a request to add/edit/remove any show, return an empty commands array and leave clarification_needed null.\n' +
     '- Today\'s date is ' + today + ' (Asia/Taipei), for resolving relative dates.';
@@ -381,7 +383,10 @@ function editShow_(shows, command) {
   const changed = [];
   ['name', 'date', 'time', 'venueName', 'venueUrl', 'ticketUrl', 'notes'].forEach(key => {
     if (f[key] !== undefined && f[key] !== null) {
-      target[key] = f[key];
+      // "Add a note" must keep the notes already on the show, not overwrite them.
+      target[key] = (key === 'notes' && command.notes_mode !== 'replace')
+        ? (target.notes || []).concat(f.notes.filter(n => (target.notes || []).indexOf(n) === -1))
+        : f[key];
       changed.push(key);
     }
   });

@@ -631,7 +631,9 @@
     "venueName": "TBD",
     "venueUrl": null,
     "ticketUrl": null,
-    "notes": [],
+    "notes": [
+      "15 min"
+    ],
     "video": null
   }
 ]

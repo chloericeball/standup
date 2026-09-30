@@ -525,6 +525,12 @@
             color: #666;
         }
 
+        .perform-also-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
         .perform-also-label {
             font-weight: 600;
             font-size: 0.8rem;
@@ -568,63 +574,6 @@
         .perform-chips a:focus-visible {
             outline: 2px solid #fff;
             outline-offset: 3px;
-        }
-
-        .perform-chip-group {
-            display: inline-flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 0 0.55rem;
-            padding: 0.55rem 1.15rem;
-            min-height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.38);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .perform-chip-group-label {
-            font-weight: 600;
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #B2B2B2;
-            white-space: nowrap;
-        }
-
-        .perform-chip-group-venues {
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-        }
-
-        .perform-chip-group-venues a,
-        .perform-chip-group-venues span.sep {
-            /* reset the inherited pill styling from .perform-chips a */
-            display: inline;
-            padding: 0;
-            min-height: 0;
-            border: none;
-            border-radius: 0;
-            background: none;
-        }
-
-        .perform-chip-group-venues a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 300;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            transition: border-color 0.3s;
-        }
-
-        .perform-chip-group-venues span.sep {
-            color: #666;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
-        }
-
-        .perform-chip-group-venues a:hover {
-            border-color: #fff;
         }
 
         .perform-more {
@@ -940,13 +889,22 @@
                 </div>
             </div>
             <div class="perform-also reveal">
-                <div class="perform-also-label">Also caught on the road in</div>
-                <div class="perform-chips">
-                    <a href="https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6" target="_blank" rel="noopener">Tainan</a>
-                    <a href="https://maps.app.goo.gl/VAGLWwqjqLd6a5f97" target="_blank" rel="noopener">Taichung</a>
-                    <a href="https://maps.app.goo.gl/apwRdPXRxYTAUjnSA" target="_blank" rel="noopener">Kaohsiung</a>
-                    <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">Hsinchu</a>
-                    <a href="https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9" target="_blank" rel="noopener">Tokyo</a>
+                <div class="perform-also-groups">
+                    <div class="perform-also-group">
+                        <div class="perform-also-label">Tokyo</div>
+                        <div class="perform-chips">
+                            <a href="https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9" target="_blank" rel="noopener">Tokyo Comedy Bar</a>
+                        </div>
+                    </div>
+                    <div class="perform-also-group">
+                        <div class="perform-also-label">Other cities in Taiwan</div>
+                        <div class="perform-chips">
+                            <a href="https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6" target="_blank" rel="noopener">Tainan</a>
+                            <a href="https://maps.app.goo.gl/VAGLWwqjqLd6a5f97" target="_blank" rel="noopener">Taichung</a>
+                            <a href="https://maps.app.goo.gl/apwRdPXRxYTAUjnSA" target="_blank" rel="noopener">Kaohsiung</a>
+                            <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">Hsinchu</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="perform-more">More cities coming soon</div>
             </div>
@@ -1132,32 +1090,60 @@ sections.forEach(function(section) {
                 }).join('\n                    ');
             }
 
-            var chipsEl = document.querySelector('.perform-chips');
-            if (chipsEl) {
+            var groupsEl = document.querySelector('.perform-also-groups');
+            if (groupsEl) {
                 var others = cities.filter(function (c) { return c !== primary; }).map(function (c) {
                     var venues = meta[c].venues.slice().sort(function (a, b) { return b.count - a.count || byDateDesc(a, b); });
                     var latest = venues.slice().sort(byDateDesc)[0];
-                    return { city: c, venues: venues, date: latest ? latest.date : '' };
-                }).sort(byDateDesc);
+                    return { city: c, full: meta[c].full, venues: venues, date: latest ? latest.date : '' };
+                });
 
-                chipsEl.innerHTML = others.map(function (o) {
-                    // A city with just one venue stays a plain chip. A city with several
-                    // venues (e.g. Tokyo) gets its own small labeled group instead of
-                    // collapsing to a single, arbitrarily-chosen venue link.
-                    if (o.venues.length <= 1) {
-                        var v = o.venues[0];
-                        return v && v.url
-                            ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
-                            : '<span>' + esc(o.city) + '</span>';
-                    }
-                    var venueLinks = o.venues.map(function (v) {
-                        return v.url
-                            ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>'
-                            : '<span>' + esc(v.name) + '</span>';
-                    }).join('<span class="sep">, </span>');
-                    return '<div class="perform-chip-group">' +
-                        '<div class="perform-chip-group-label">' + esc(o.city) + '</div>' +
-                        '<div class="perform-chip-group-venues">' + venueLinks + '</div>' +
+                function venueChip(v) {
+                    return v.url
+                        ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>'
+                        : '<span>' + esc(v.name) + '</span>';
+                }
+                function cityChip(o) {
+                    var v = o.venues[0];
+                    return v && v.url
+                        ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
+                        : '<span>' + esc(o.city) + '</span>';
+                }
+
+                var groups = [];
+
+                // A city with several venues (e.g. Tokyo) gets its own heading with a
+                // chip per venue, instead of collapsing to one arbitrarily-chosen link.
+                others.filter(function (o) { return o.venues.length > 1; }).forEach(function (o) {
+                    groups.push({
+                        label: o.city,
+                        date: o.date,
+                        chips: o.venues.map(venueChip).join('\n                            ')
+                    });
+                });
+
+                // Remaining single-venue cities are grouped by country, so e.g. Tainan,
+                // Taichung, Kaohsiung and Hsinchu sit together under "Other cities in Taiwan".
+                var byCountry = {};
+                others.filter(function (o) { return o.venues.length <= 1; }).forEach(function (o) {
+                    var country = (o.full.split(',').pop() || '').trim() || 'Elsewhere';
+                    (byCountry[country] = byCountry[country] || []).push(o);
+                });
+                Object.keys(byCountry).forEach(function (country) {
+                    var list = byCountry[country].sort(byDateDesc);
+                    groups.push({
+                        label: 'Other cities in ' + country,
+                        date: list[0].date,
+                        chips: list.map(cityChip).join('\n                            ')
+                    });
+                });
+
+                groups.sort(byDateDesc);
+
+                groupsEl.innerHTML = groups.map(function (g) {
+                    return '<div class="perform-also-group">' +
+                        '<div class="perform-also-label">' + esc(g.label) + '</div>' +
+                        '<div class="perform-chips">' + g.chips + '</div>' +
                         '</div>';
                 }).join('\n                    ');
             }

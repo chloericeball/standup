@@ -1001,8 +1001,11 @@ sections.forEach(function(section) {
         [/tainan/,           { short: 'Tainan', full: 'Tainan, Taiwan' }],
         [/smohouse/,         { short: 'Taichung', full: 'Taichung, Taiwan' }],
         [/live warehouse/,   { short: 'Kaohsiung', full: 'Kaohsiung, Taiwan' }],
-        [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }],
-        [/tokyo/,            { short: 'Tokyo', full: 'Tokyo, Japan' }]
+        [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }]
+        // Tokyo venues are intentionally left unmatched: each Tokyo venue has its own
+        // Google Maps link, so grouping them under one "Tokyo" chip would mean picking
+        // just one venue's link and losing the other. Falling through to the venue-name
+        // default keeps every venue's own link intact.
     ];
     var WINDOW = 30;
 

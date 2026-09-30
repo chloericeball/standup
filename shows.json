@@ -614,8 +614,8 @@
     "name": "Craft Comedy",
     "instagram": null,
     "date": "2026-10-16",
-    "time": null,
-    "venueName": "Two Three",
+    "time": "9:30 PM",
+    "venueName": "Two Three Comedy Club",
     "venueUrl": null,
     "ticketUrl": null,
     "notes": [],
@@ -627,9 +627,9 @@
     "name": "Taichung Comedy Live",
     "instagram": null,
     "date": "2026-11-07",
-    "time": null,
-    "venueName": "TBD",
-    "venueUrl": null,
+    "time": "9:00 PM",
+    "venueName": "Taichung Laugh House",
+    "venueUrl": "https://maps.app.goo.gl/UMMvQ15GPRAH6hdw7?g_st=ic",
     "ticketUrl": null,
     "notes": [
       "15 min"

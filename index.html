@@ -558,6 +558,46 @@
             outline-offset: 3px;
         }
 
+        .perform-chip-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.5rem 1.15rem;
+            min-height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .perform-chip-group-label {
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #B2B2B2;
+        }
+
+        .perform-chip-group-venues {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .perform-chip-group-venues a,
+        .perform-chip-group-venues span {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.85rem;
+            padding-bottom: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            transition: border-color 0.3s;
+        }
+
+        .perform-chip-group-venues a:hover {
+            border-color: #fff;
+        }
+
         .perform-more {
             margin-top: 1rem;
             font-weight: 300;
@@ -994,19 +1034,17 @@ sections.forEach(function(section) {
 <!-- "Where do I usually perform?" — derived from shows.json -->
 <script>
 (function () {
-    // venueName (lowercased substring) -> city. Anything unmatched falls back to the venue name.
+    // venueName (lowercased substring) -> city. Taipei is home base, so anything
+    // unmatched here defaults to Taipei rather than needing its own entry — only
+    // venues outside Taipei need to be listed explicitly.
     var VENUE_CITY = [
-        [/two three comedy/, { short: 'Taipei', full: 'Taipei, Taiwan' }],
-        [/comedy plus/,      { short: 'Taipei', full: 'Taipei, Taiwan' }],
         [/tainan/,           { short: 'Tainan', full: 'Tainan, Taiwan' }],
         [/smohouse/,         { short: 'Taichung', full: 'Taichung, Taiwan' }],
         [/live warehouse/,   { short: 'Kaohsiung', full: 'Kaohsiung, Taiwan' }],
-        [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }]
-        // Tokyo venues are intentionally left unmatched: each Tokyo venue has its own
-        // Google Maps link, so grouping them under one "Tokyo" chip would mean picking
-        // just one venue's link and losing the other. Falling through to the venue-name
-        // default keeps every venue's own link intact.
+        [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }],
+        [/tokyo|アルティカセブン/, { short: 'Tokyo', full: 'Tokyo, Japan' }]
     ];
+    var HOME_CITY = { short: 'Taipei', full: 'Taipei, Taiwan' };
     var WINDOW = 30;
 
     function cityOf(venueName) {
@@ -1014,7 +1052,7 @@ sections.forEach(function(section) {
         for (var i = 0; i < VENUE_CITY.length; i++) {
             if (VENUE_CITY[i][0].test(key)) return VENUE_CITY[i][1];
         }
-        return { short: venueName || 'Elsewhere', full: venueName || 'Elsewhere' };
+        return HOME_CITY;
     }
     function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
     function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
@@ -1067,14 +1105,30 @@ sections.forEach(function(section) {
             var chipsEl = document.querySelector('.perform-chips');
             if (chipsEl) {
                 var others = cities.filter(function (c) { return c !== primary; }).map(function (c) {
-                    var v = meta[c].venues.slice().sort(byDateDesc)[0];
-                    return { city: c, url: v ? v.url : null, date: v ? v.date : '' };
+                    var venues = meta[c].venues.slice().sort(function (a, b) { return b.count - a.count || byDateDesc(a, b); });
+                    var latest = venues.slice().sort(byDateDesc)[0];
+                    return { city: c, venues: venues, date: latest ? latest.date : '' };
                 }).sort(byDateDesc);
 
                 chipsEl.innerHTML = others.map(function (o) {
-                    return o.url
-                        ? '<a href="' + escAttr(o.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
-                        : '<span>' + esc(o.city) + '</span>';
+                    // A city with just one venue stays a plain chip. A city with several
+                    // venues (e.g. Tokyo) gets its own small labeled group instead of
+                    // collapsing to a single, arbitrarily-chosen venue link.
+                    if (o.venues.length <= 1) {
+                        var v = o.venues[0];
+                        return v && v.url
+                            ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
+                            : '<span>' + esc(o.city) + '</span>';
+                    }
+                    var venueLinks = o.venues.map(function (v) {
+                        return v.url
+                            ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>'
+                            : '<span>' + esc(v.name) + '</span>';
+                    }).join('\n                            ');
+                    return '<div class="perform-chip-group">' +
+                        '<div class="perform-chip-group-label">' + esc(o.city) + '</div>' +
+                        '<div class="perform-chip-group-venues">' + venueLinks + '</div>' +
+                        '</div>';
                 }).join('\n                    ');
             }
         })

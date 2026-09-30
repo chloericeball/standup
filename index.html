@@ -513,6 +513,18 @@
             border-color: #fff;
         }
 
+        .perform-venue-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+        }
+
+        .perform-venue-count {
+            font-weight: 300;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
         .perform-also-label {
             font-weight: 600;
             font-size: 0.8rem;
@@ -1115,7 +1127,8 @@ sections.forEach(function(section) {
                 venuesEl.innerHTML = pMeta.venues.slice().sort(function (a, b) {
                     return b.count - a.count || byDateDesc(a, b);
                 }).map(function (v) {
-                    return '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>';
+                    return '<div class="perform-venue-row"><a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) +
+                        '</a> <span class="perform-venue-count">(' + v.count + ')</span></div>';
                 }).join('\n                    ');
             }
 

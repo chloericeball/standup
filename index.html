@@ -560,9 +560,10 @@
 
         .perform-chip-group {
             display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            padding: 0.5rem 1.15rem;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0 0.55rem;
+            padding: 0.55rem 1.15rem;
             min-height: 40px;
             border: 1px solid rgba(255, 255, 255, 0.38);
             border-radius: 999px;
@@ -575,23 +576,39 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: #B2B2B2;
+            white-space: nowrap;
         }
 
         .perform-chip-group-venues {
-            display: flex;
+            display: inline-flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            align-items: baseline;
         }
 
         .perform-chip-group-venues a,
-        .perform-chip-group-venues span {
+        .perform-chip-group-venues span.sep {
+            /* reset the inherited pill styling from .perform-chips a */
+            display: inline;
+            padding: 0;
+            min-height: 0;
+            border: none;
+            border-radius: 0;
+            background: none;
+        }
+
+        .perform-chip-group-venues a {
             color: #fff;
             text-decoration: none;
             font-weight: 300;
             font-size: 0.85rem;
-            padding-bottom: 1px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.25);
             transition: border-color 0.3s;
+        }
+
+        .perform-chip-group-venues span.sep {
+            color: #666;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
         }
 
         .perform-chip-group-venues a:hover {
@@ -1124,7 +1141,7 @@ sections.forEach(function(section) {
                         return v.url
                             ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(v.name) + '</a>'
                             : '<span>' + esc(v.name) + '</span>';
-                    }).join('\n                            ');
+                    }).join('<span class="sep">, </span>');
                     return '<div class="perform-chip-group">' +
                         '<div class="perform-chip-group-label">' + esc(o.city) + '</div>' +
                         '<div class="perform-chip-group-venues">' + venueLinks + '</div>' +

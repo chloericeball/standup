@@ -891,18 +891,18 @@
             <div class="perform-also reveal">
                 <div class="perform-also-groups">
                     <div class="perform-also-group">
-                        <div class="perform-also-label">Tokyo</div>
+                        <div class="perform-also-label">Other cities in Taiwan</div>
                         <div class="perform-chips">
-                            <a href="https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9" target="_blank" rel="noopener">Tokyo Comedy Bar</a>
+                            <a href="https://maps.app.goo.gl/UMMvQ15GPRAH6hdw7?g_st=ic" target="_blank" rel="noopener">Taichung Laugh House</a>
+                            <a href="https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6" target="_blank" rel="noopener">Tainan</a>
+                            <a href="https://maps.app.goo.gl/apwRdPXRxYTAUjnSA" target="_blank" rel="noopener">Kaohsiung</a>
+                            <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">Hsinchu</a>
                         </div>
                     </div>
                     <div class="perform-also-group">
-                        <div class="perform-also-label">Other cities in Taiwan</div>
+                        <div class="perform-also-label">Tokyo</div>
                         <div class="perform-chips">
-                            <a href="https://maps.app.goo.gl/xZ5gbjEh5UhuMvtC6" target="_blank" rel="noopener">Tainan</a>
-                            <a href="https://maps.app.goo.gl/VAGLWwqjqLd6a5f97" target="_blank" rel="noopener">Taichung</a>
-                            <a href="https://maps.app.goo.gl/apwRdPXRxYTAUjnSA" target="_blank" rel="noopener">Kaohsiung</a>
-                            <a href="https://maps.app.goo.gl/rT7E6z2bfmJyQoKp7?g_st=ic" target="_blank" rel="noopener">Hsinchu</a>
+                            <a href="https://maps.app.goo.gl/uE9uCVPTA2mK3Egy9" target="_blank" rel="noopener">Tokyo Comedy Bar</a>
                         </div>
                     </div>
                 </div>
@@ -1026,13 +1026,23 @@ sections.forEach(function(section) {
     // venues outside Taipei need to be listed explicitly.
     var VENUE_CITY = [
         [/tainan/,           { short: 'Tainan', full: 'Tainan, Taiwan' }],
-        [/smohouse/,         { short: 'Taichung', full: 'Taichung, Taiwan' }],
+        [/smohouse|laugh house/, { short: 'Taichung', full: 'Taichung, Taiwan' }],
         [/live warehouse/,   { short: 'Kaohsiung', full: 'Kaohsiung, Taiwan' }],
         [/wind_city|thewind/, { short: 'Hsinchu', full: 'Hsinchu, Taiwan' }],
         [/tokyo|アルティカセブン/, { short: 'Tokyo', full: 'Tokyo, Japan' }]
     ];
     var HOME_CITY = { short: 'Taipei', full: 'Taipei, Taiwan' };
     var WINDOW = 30;
+
+    // Retired venues to leave out of "Also performed" entirely — not places
+    // I still play, so they shouldn't show up as a chip even if a past show there
+    // is still inside the WINDOW.
+    var RETIRED_VENUES = [/smohouse/];
+
+    // Cities down to a single active venue whose own name should be shown
+    // instead of the generic city label (e.g. so Taichung reads as its actual
+    // venue rather than a bare "Taichung" chip).
+    var PREFER_VENUE_NAME = { Taichung: true };
 
     function cityOf(venueName) {
         var key = String(venueName || '').toLowerCase();
@@ -1055,6 +1065,8 @@ sections.forEach(function(section) {
             var tally = {};   // short -> count
             var meta = {};    // short -> { full, venues: [{ name, url, count, date }] }
             recent.forEach(function (s) {
+                var venueKey = String(s.venueName || '').toLowerCase();
+                if (RETIRED_VENUES.some(function (re) { return re.test(venueKey); })) return;
                 var c = cityOf(s.venueName);
                 tally[c.short] = (tally[c.short] || 0) + 1;
                 if (!meta[c.short]) meta[c.short] = { full: c.full, venues: [] };
@@ -1105,6 +1117,7 @@ sections.forEach(function(section) {
                 }
                 function cityChip(o) {
                     var v = o.venues[0];
+                    if (PREFER_VENUE_NAME[o.city] && v) return venueChip(v);
                     return v && v.url
                         ? '<a href="' + escAttr(v.url) + '" target="_blank" rel="noopener">' + esc(o.city) + '</a>'
                         : '<span>' + esc(o.city) + '</span>';

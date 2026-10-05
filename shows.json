@@ -601,6 +601,19 @@
   {
     "number": 37,
     "color": "gold",
+    "name": "National Taiwan University Comedy Club - Guest Lecture",
+    "instagram": null,
+    "date": "2026-10-06",
+    "time": "7:30 PM",
+    "venueName": "底加書店",
+    "venueUrl": "https://maps.app.goo.gl/MFPS65t56dkqosHv6",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 38,
+    "color": "coral",
     "name": "Zach’s goodbye show",
     "instagram": null,
     "date": "2026-10-10",
@@ -612,8 +625,8 @@
     "video": null
   },
   {
-    "number": 38,
-    "color": "coral",
+    "number": 39,
+    "color": "gold",
     "name": "Craft Comedy",
     "instagram": null,
     "date": "2026-10-16",
@@ -625,8 +638,8 @@
     "video": null
   },
   {
-    "number": 39,
-    "color": "gold",
+    "number": 40,
+    "color": "coral",
     "name": "日本語スタンダップコメディ オープンマイク",
     "instagram": null,
     "date": "2026-10-19",
@@ -640,8 +653,8 @@
     "video": null
   },
   {
-    "number": 40,
-    "color": "coral",
+    "number": 41,
+    "color": "gold",
     "name": "Taichung Comedy Live",
     "instagram": null,
     "date": "2026-11-07",
@@ -655,14 +668,14 @@
     "video": null
   },
   {
-    "number": 41,
-    "color": "gold",
+    "number": 42,
+    "color": "coral",
     "name": "Roast of Ellery",
     "instagram": null,
     "date": "2026-12-12",
     "time": "10:30 PM",
-    "venueName": "TBD",
-    "venueUrl": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
     "ticketUrl": null,
     "notes": [
       "6 min"

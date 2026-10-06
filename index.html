@@ -882,7 +882,7 @@
         <div class="perform-grid">
             <div class="perform-main reveal">
                 <div class="perform-city">Taipei, Taiwan</div>
-                <div class="perform-count">25 of my last 30 shows</div>
+                <div class="perform-count">33 of my 42 shows all-time</div>
                 <div class="perform-venues">
                     <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy Club</a>
                     <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a>
@@ -1032,11 +1032,10 @@ sections.forEach(function(section) {
         [/tokyo|アルティカセブン/, { short: 'Tokyo', full: 'Tokyo, Japan' }]
     ];
     var HOME_CITY = { short: 'Taipei', full: 'Taipei, Taiwan' };
-    var WINDOW = 30;
 
     // Retired venues to leave out of "Also performed" entirely — not places
     // I still play, so they shouldn't show up as a chip even if a past show there
-    // is still inside the WINDOW.
+    // is still in the history.
     var RETIRED_VENUES = [/smohouse/];
 
     // Cities down to a single active venue whose own name should be shown
@@ -1060,7 +1059,7 @@ sections.forEach(function(section) {
         .then(function (shows) {
             if (!Array.isArray(shows) || !shows.length) return;
 
-            var recent = shows.slice().sort(byDateDesc).slice(0, WINDOW);
+            var recent = shows.slice().sort(byDateDesc);
 
             var tally = {};   // short -> count
             var meta = {};    // short -> { full, venues: [{ name, url, count, date }] }
@@ -1090,7 +1089,7 @@ sections.forEach(function(section) {
             if (cityEl) cityEl.textContent = pMeta.full;
 
             var countEl = document.querySelector('.perform-count');
-            if (countEl) countEl.textContent = tally[primary] + ' of my last ' + recent.length + ' shows';
+            if (countEl) countEl.textContent = tally[primary] + ' of my ' + recent.length + ' shows all-time';
 
             var venuesEl = document.querySelector('.perform-venues');
             if (venuesEl) {

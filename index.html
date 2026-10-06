@@ -882,7 +882,7 @@
         <div class="perform-grid">
             <div class="perform-main reveal">
                 <div class="perform-city">Taipei, Taiwan</div>
-                <div class="perform-count">33 of my 42 shows all-time</div>
+                <div class="perform-count">32 of my 41 shows all-time</div>
                 <div class="perform-venues">
                     <a href="https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic" target="_blank" rel="noopener">Two Three Comedy Club</a>
                     <a href="https://maps.app.goo.gl/WsczSCkdVnQA5LLd6?g_st=ic" target="_blank" rel="noopener">Comedy Plus</a>
@@ -1038,6 +1038,10 @@ sections.forEach(function(section) {
     // is still in the history.
     var RETIRED_VENUES = [/smohouse/];
 
+    // Entries that aren't stand-up shows (e.g. guest lectures) — excluded from
+    // the whole section, not just a venue chip.
+    var NON_SHOW_EVENTS = [/guest lecture/i];
+
     // Cities down to a single active venue whose own name should be shown
     // instead of the generic city label (e.g. so Taichung reads as its actual
     // venue rather than a bare "Taichung" chip).
@@ -1059,7 +1063,9 @@ sections.forEach(function(section) {
         .then(function (shows) {
             if (!Array.isArray(shows) || !shows.length) return;
 
-            var recent = shows.slice().sort(byDateDesc);
+            var recent = shows.filter(function (s) {
+                return !NON_SHOW_EVENTS.some(function (re) { return re.test(s.name || ''); });
+            }).sort(byDateDesc);
 
             var tally = {};   // short -> count
             var meta = {};    // short -> { full, venues: [{ name, url, count, date }] }

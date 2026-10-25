@@ -658,6 +658,22 @@
   {
     "number": 41,
     "color": "gold",
+    "name": "Funny Women Taipei",
+    "instagram": {
+      "url": "https://www.instagram.com/funnywomentaipei/",
+      "label": "Funny Women Taipei Instagram"
+    },
+    "date": "2026-11-06",
+    "time": null,
+    "venueName": "Two Three Comedy",
+    "venueUrl": "https://maps.app.goo.gl/hb7J3ZCVBSWkZcQb7?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 42,
+    "color": "coral",
     "name": "Taichung Comedy Live",
     "instagram": null,
     "date": "2026-11-07",
@@ -671,7 +687,20 @@
     "video": null
   },
   {
-    "number": 42,
+    "number": 43,
+    "color": "gold",
+    "name": "中文+日本語 Stand-up Comedy Open Mic",
+    "instagram": null,
+    "date": "2026-11-16",
+    "time": "8:30 PM",
+    "venueName": "Riff Bar",
+    "venueUrl": "https://maps.app.goo.gl/woHaK3ZdCdBFkXT97?g_st=ic",
+    "ticketUrl": null,
+    "notes": [],
+    "video": null
+  },
+  {
+    "number": 44,
     "color": "coral",
     "name": "Roast of Ellery",
     "instagram": null,

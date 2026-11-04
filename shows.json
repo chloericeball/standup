@@ -692,12 +692,12 @@
     "name": "TGIF English Rakugo",
     "instagram": null,
     "date": "2026-11-13",
-    "time": "7:00 PM",
+    "time": "7:00-8:15 PM",
     "venueName": "Chaabee (1-11-11 Fukuzumi, Koto-ku, Tokyo)",
     "venueUrl": "https://maps.app.goo.gl/GrQHqfW37zzjDYBs6",
     "ticketUrl": null,
     "notes": [
-      "7:00-8:15 PM, doors open 6:30 PM",
+      "Doors open 6:30 PM",
       "Admission free (1 drink order required; cash only)"
     ],
     "video": null
@@ -712,7 +712,9 @@
     "venueName": "Riff Bar",
     "venueUrl": "https://maps.app.goo.gl/woHaK3ZdCdBFkXT97?g_st=ic",
     "ticketUrl": null,
-    "notes": [],
+    "notes": [
+      "主持人　MCです"
+    ],
     "video": null
   },
   {
@@ -725,7 +727,9 @@
     "venueName": "底加書店",
     "venueUrl": null,
     "ticketUrl": null,
-    "notes": [],
+    "notes": [
+      "當評審"
+    ],
     "video": null
   },
   {
@@ -738,7 +742,9 @@
     "venueName": "月半窩 (臺北市中山區銅山街一號)",
     "venueUrl": "https://maps.app.goo.gl/WxxgVaYHt9p9g7LU8",
     "ticketUrl": "https://kktix.com/events/zenjiro1202/registrations/new",
-    "notes": [],
+    "notes": [
+      "Opening for Zenjiro"
+    ],
     "video": null
   },
   {
